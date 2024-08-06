@@ -1,3 +1,6 @@
 npx sequelize-cli model:create --name "User" --attributes email:string,password:string
 npx sequelize-cli model:create --name "Airport" --attributes airportCode:string,name:string,country:string,private:boolean,iataCode:string,icaoCode:string,runway1:string,runway2:string,elevation:integer
 npx sequelize-cli model:create --name "Review" --attributes UserId:integer,AirportId:integer,rate:integer,comment:text
+
+npx sequelize-cli seed:create --name "SeedUser"
+npx sequelize-cli seed:create --name "SeedAirport"
