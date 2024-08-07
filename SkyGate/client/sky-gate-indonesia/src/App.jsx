@@ -8,6 +8,7 @@ import RegisterPage from "./pages/RegisterPage";
 import NotFound from "./pages/NotFound";
 import HomePage from "./pages/HomePage";
 import MainLayout from "./pages/MainLayout";
+import AirportList from "./pages/AirportList";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage />
+      },
+      {
+        path: "/airports",
+        element: <AirportList />
       },
       {
         path: '*',

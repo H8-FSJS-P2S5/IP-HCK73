@@ -106,7 +106,7 @@ const Navbar = () => {
                                     </svg>
                                     Home
                                 </Link>
-                                <a
+                                <Link to={'/airports'}
                                     className="p-2 flex items-center text-sm text-white hover:text-cyan-200 focus:outline-none focus:text-cyan-200 hover:underline"
                                     href="#"
                                 >
@@ -126,7 +126,7 @@ const Navbar = () => {
                                         <circle cx={12} cy={7} r={4} />
                                     </svg>
                                     Airports
-                                </a>
+                                </Link>
                                 <a
                                     className="p-2 flex items-center text-sm text-white hover:text-cyan-200 focus:outline-none focus:text-cyan-200 hover:underline"
                                     href="#"

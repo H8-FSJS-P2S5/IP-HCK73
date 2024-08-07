@@ -45,7 +45,7 @@ const LoginPage = () => {
                                     </g>
                                 </svg>
                             </div>
-                            <p className="mt-3 text-gray-500 ">
+                            <p className="mt-3 text-gray-500 font-semibold">
                                 Discover more with a quick sign-in
                             </p>
                         </div>
@@ -109,7 +109,7 @@ const LoginPage = () => {
                                 <div
                                     className="text-xs text-center text-gray-500 uppercase dark:text-gray-400"
                                 >
-                                    or login with Google
+                                    or sign in with Google
                                 </div>
                                 <span className="w-1/5 border-b border-gray-400 lg:w-1/4" />
                             </div>
