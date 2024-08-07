@@ -6,12 +6,10 @@ import "./index.css";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import NotFound from "./pages/NotFound";
+import HomePage from "./pages/HomePage";
+import MainLayout from "./pages/MainLayout";
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <div>Hello world!</div>,
-  },
   {
     path: '/login',
     element: <LoginPage />
@@ -21,9 +19,18 @@ const router = createBrowserRouter([
     element: <RegisterPage />
   },
   {
-    path: '*',
-    element: <NotFound />
-  }
+    element: <MainLayout />,
+    children: [
+      {
+        path: "/",
+        element: <HomePage />
+      },
+      {
+        path: '*',
+        element: <NotFound />
+      }
+    ]
+  },
 ]);
 
 
