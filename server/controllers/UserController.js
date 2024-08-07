@@ -54,9 +54,7 @@ class UserController {
   static async getUser(req, res, next) {
     const { id } = req.user;
     try {
-      let findUser = await User.findByPk(+id, {
-        attributes: { exclude: ["password"] },
-      });
+      let findUser = await User.findByPk(+id);
 
       res.status(200).json(findUser);
     } catch (error) {

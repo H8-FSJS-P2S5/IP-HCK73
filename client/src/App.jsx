@@ -4,6 +4,8 @@ import Homepage from "./pages/Homepage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
+import GameDetails from "./pages/GameDetails";
+import Profile from "./pages/Profile";
 // import './App.css'
 
 const router = createBrowserRouter([
@@ -20,10 +22,14 @@ const router = createBrowserRouter([
         path: "/",
         element: <Homepage />,
       },
-      // {
-      //   path: "/games/:id",
-      //   element: <GameDetails />,
-      // },
+      {
+        path: "/games/:id",
+        element: <GameDetails />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
+      },
     ],
   },
   {

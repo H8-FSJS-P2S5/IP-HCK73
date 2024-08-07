@@ -150,8 +150,8 @@ const Navbar = () => {
               Favorites
             </Link>
 
-            {/* Logout */}
-            <div className="relative flex flex-wrap items-center gap-x-1.5 md:ps-2.5 mt-1 md:mt-0 md:ms-1.5 before:block before:absolute before:top-1/2 before:-start-px before:w-px before:h-4 before:bg-gray-300 before:-translate-y-1/2">
+            {/* User Profile */}
+            <Link to={"/profile"} className="relative flex flex-wrap items-center gap-x-1.5 md:ps-2.5 mt-1 md:mt-0 md:ms-1.5 before:block before:absolute before:top-1/2 before:-start-px before:w-px before:h-4 before:bg-gray-300 before:-translate-y-1/2">
               <button className="p-2 w-full flex items-center text-sm text-[#c1c1c1] hover:text-white focus:outline-none focus:text-white">
                 <svg
                   className="shrink-0 size-4 me-3 md:me-2"
@@ -159,7 +159,7 @@ const Navbar = () => {
                   width="24"
                   height="24"
                   viewBox="0 0 24 24"
-                  fill="none"
+                  fill="white"
                   stroke="currentColor"
                   strokeWidth="2"
                   strokeLinecap="round"
@@ -170,11 +170,12 @@ const Navbar = () => {
                 </svg>
                 {user.username}
               </button>
-            </div>
+            </Link>
+            {/* Logout */}
             <div className="relative flex flex-wrap items-center gap-x-1.5 md:ps-2.5 mt-1 md:mt-0 md:ms-1.5">
               <button
                 onClick={HandleLogout}
-                className="p-2 w-full border border-red-500 rounded-lg flex items-center text-sm text-[#c1c1c1] hover:text-white hover:bg-red-500 focus:outline-none focus:text-red-500"
+                className="px-2 py-1 w-full border border-red-500 rounded-lg flex items-center text-sm text-[#c1c1c1] hover:text-white hover:bg-red-500 focus:outline-none focus:text-red-500"
               >
                 Logout
               </button>

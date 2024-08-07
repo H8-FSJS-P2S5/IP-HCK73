@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import instance from "../helpers/instance";
 
@@ -50,18 +50,17 @@ const Login = () => {
 
       {/* Login Form */}
       <div className="mt-24">
-        <div className="mx-auto w-1/3 bg-[#202020] border border-black rounded-xl shadow-lg">
+        <div className="mx-auto w-1/3 bg-[#151515] border border-black rounded-xl shadow-lg">
           <div className="p-4 sm:p-7">
             <div className="text-center">
               <h1 className="block text-2xl font-bold text-white">Sign in</h1>
               <p className="mt-2 text-sm text-[#c1c1c1]">
                 Don't have an account yet?<span> </span>
-                <a
-                  className="text-white decoration-2 underline hover:no-underline focus:outline-none focus:underline font-medium"
-                  href="#"
+                <Link to={"/register"}
+                  className="text-white decoration-1 underline hover:no-underline focus:outline-none focus:underline font-medium"
                 >
                   Sign up here
-                </a>
+                </Link>
               </p>
             </div>
 
@@ -138,7 +137,7 @@ const Login = () => {
                         Password
                       </label>
                       <a
-                        className="inline-flex items-center gap-x-1 text-sm text-white decoration-2 underline hover:no-underline focus:outline-none focus:underline font-medium"
+                        className="inline-flex items-center gap-x-1 text-sm text-white decoration-1 underline hover:no-underline focus:outline-none focus:underline font-medium"
                         href="#"
                       >
                         Forgot password?
