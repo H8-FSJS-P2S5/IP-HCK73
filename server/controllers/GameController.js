@@ -4,20 +4,69 @@ const { Op } = require("sequelize");
 class GameController {
   static async readAllGames(req, res, next) {
     try {
-      let games = await Game.findAll({
-        include: [
-          {
-            model: User,
-            attributes: { exclude: ["password"] },
-          },
-          {
-            model: Favorite,
-          },
-        ],
+      const { search, filter, sort, page } = req.query;
+      const options = {
         order: [["id"]],
-      });
+      };
 
-      res.status(200).json(games);
+      if (search) {
+        options.where = {
+          name: {
+            [Op.iLike]: `%${search}%`,
+          },
+        };
+      }
+
+      if (filter) {
+        options.where = {
+          categoryId: filter,
+        };
+      }
+
+      if (search && filter) {
+        options.where = {
+          name: {
+            [Op.iLike]: `%${search}%`,
+          },
+          categoryId: filter,
+        };
+      }
+
+      if (sort) {
+        const ordering = sort[0] === "-" ? "DESC" : "ASC";
+        const columnName = ordering === "DESC" ? sort.slice(1) : sort;
+
+        options.order = [[columnName, ordering]];
+      }
+
+      let limit = 10;
+      let pageNumber = 1;
+      options.limit = limit;
+
+      if (page) {
+        if (page.size) {
+          limit = +page.size;
+          options.limit = limit;
+        } else {
+          options.limit = limit;
+        }
+
+        if (page.number) {
+          pageNumber = +page.number;
+          options.offset = limit * (pageNumber - 1);
+        }
+      }
+      const { count } = await Game.findAndCountAll(options);
+
+      let games = await Product.findAll(options);
+
+      res.status(200).json({
+        page: pageNumber,
+        data: games,
+        totalData: count,
+        totalPage: Math.ceil(count / limit),
+        dataPerPage: limit,
+      });
     } catch (error) {
       next(error);
     }

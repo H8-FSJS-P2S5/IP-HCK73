@@ -34,7 +34,10 @@ module.exports = {
         data.description_raw =
           "Immerse yourself in a captivating gaming experience where adventure awaits at every turn. This game offers a rich and dynamic world filled with engaging challenges and opportunities for exploration. Players are invited to embark on a journey through a beautifully crafted environment, uncovering hidden secrets and overcoming obstacles along the way.\nThe gameplay is designed to be both intuitive and rewarding, allowing players to master various skills and strategies as they progress. Whether you prefer solving intricate puzzles, engaging in strategic combat, or building and crafting, the game provides a variety of activities to suit different playstyles.";
       }
-      data.description_raw.replace(/[&\/\\#, +()$~%.'":*?<>{}]/g, "");
+      data.description_raw = data.description_raw.replace(
+        /[\/\\#+$~%*<>{}]/g,
+        ""
+      );
       return data.description_raw;
     };
 
