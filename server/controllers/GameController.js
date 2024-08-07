@@ -60,6 +60,7 @@ class GameController {
 
   static async askRecommendations(req, res, next) {
     try {
+      const { genre } = req.body;
       let games = await Game.findAll();
       games = games.map((el) => {
         return {
@@ -70,22 +71,7 @@ class GameController {
         };
       });
 
-      const { genre } = req.body;
       let data = await gemini(genre, JSON.stringify(games));
-      // data.forEach(el => {
-      //   result = await Game.findAll({
-      //   where: {
-      //     id: data.id,
-      //   },
-      // });
-      // });
-      
-
-      // let result = await Game.findAll({
-      //   where: {
-      //     id: data.id,
-      //   },
-      // });
 
       res.status(200).json(data);
     } catch (error) {

@@ -96,7 +96,7 @@ class UserController {
       });
       const payload = ticket.getPayload();
       const [user, created] = await User.findOrCreate({
-        where: { email },
+        where: { email: payload.email },
         defaults: {
           username: payload.name,
           email: payload.email,
@@ -110,7 +110,7 @@ class UserController {
       const token = signToken({ id: user.id }, process.env.JWT_SECRET);
       res.status(created ? 201 : 200).json({ access_token: token });
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
 }

@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import instance from "../helpers/instance";
 import { useEffect, useState } from "react";
+import GameCard from "../components/GameCard";
 
 // let games = [
 //   {
@@ -229,20 +230,72 @@ const Homepage = () => {
         </div>
         <div className="relative z-10 flex flex-col justify-center items-center h-full text-center">
           <h1 className="text-5xl font-bold leading-tight mb-4">
+            Get Recommendations
+          </h1>
+          <p className="text-lg text-gray-300 mb-8">
+            Enter your favorite genre?
+          </p>
+          <a
+            className="bg-yellow-400 text-gray-900 hover:bg-yellow-300 py-2 px-6 rounded-full text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
+            href="#games"
+          >
+            Browse Games
+          </a>
+          <h1 className="text-5xl font-bold leading-tight mb-4">
             Welcome to Our Awesome Website
           </h1>
           <p className="text-lg text-gray-300 mb-8">
             Discover amazing features and services that await you.
           </p>
-          <a className="bg-yellow-400 text-gray-900 hover:bg-yellow-300 py-2 px-6 rounded-full text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg">
-            Get Started
+          <a
+            className="bg-yellow-400 text-gray-900 hover:bg-yellow-300 py-2 px-6 rounded-full text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
+            href="#games"
+          >
+            Browse Games
           </a>
         </div>
       </div>
       {/* Games Card */}
-      <div className="mt-10 grid grid-cols-1 gap-x-0.5 gap-y-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 snap-start">
-        {/* PerCard */}
-        {games.map((el) => (
+      <div id="games" className="font-sans p-4 mx-auto xl:max-w-7xl lg:max-w-5xl md:max-w-3xl max-w-md">
+        <h2 className="text-4xl font-extrabold text-white text-center mb-8">
+          Games
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {games.map((game) => (
+            <GameCard game={game}/>
+            // <div className="bg-gray-100 p-2 overflow-hidden cursor-pointer">
+            //   <div className="bg-white flex flex-col h-full">
+            //     <div className="w-full h-[250px] overflow-hidden mx-auto aspect-w-16 aspect-h-8">
+            //       <img
+            //         alt="food1"
+            //         className="h-full w-full object-cover"
+            //         src="https://readymadeui.com/images/food1.webp"
+            //       />
+            //     </div>
+            //     <div className="p-6 text-center flex-1">
+            //       <h3 className="text-lg font-bold text-gray-800">
+            //         Veg Burger with Salad
+            //       </h3>
+            //       <h4 className="text-xl text-gray-800 font-bold mt-3">$22</h4>
+            //     </div>
+            //     <button
+            //       className="bg-gray-700 font-semibold hover:bg-gray-800 text-white text-sm px-2 py-2.5 w-full"
+            //       type="button"
+            //     >
+            //       Add to Cart
+            //     </button>
+            //   </div>
+            // </div>
+          ))}
+        </div>
+      </div>
+
+      {/* <div
+        id="games"
+        className="mt-10 grid grid-cols-1 gap-x-0.5 gap-y-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 snap-start"
+      > */}
+      {/* PerCard */}
+      {/* {games.map((el) => (
           <Link
             to={`/games/${el.id}`}
             className="w-11/12 max-w-sm rounded-lg overflow-hidden mx-auto font-[sans-serif] mt-4"
@@ -263,16 +316,10 @@ const Homepage = () => {
                   {el.metacriticRating} / 100
                 </p>
               </div>
-              {/* <button
-                className="mt-6 px-5 py-2.5 rounded-lg text-white text-sm tracking-wider border-none outline-none bg-blue-600 hover:bg-blue-700 active:bg-blue-600 w-full"
-                type="button"
-              >
-                View
-              </button> */}
             </div>
           </Link>
         ))}
-      </div>
+      </div> */}
 
       {/* Pagination */}
       {totalPage > 0 && (
