@@ -17,21 +17,6 @@ class GameController {
         };
       }
 
-      // if (filter) {
-      //   options.where = {
-      //     genre: filter,
-      //   };
-      // }
-
-      // if (search && filter) {
-      //   options.where = {
-      //     title: {
-      //       [Op.iLike]: `%${search}%`,
-      //     },
-      //     genre: filter,
-      //   };
-      // }
-
       if (sort) {
         const ordering = sort[0] === "-" ? "DESC" : "ASC";
         const columnName = ordering === "DESC" ? sort.slice(1) : sort;

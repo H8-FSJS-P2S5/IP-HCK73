@@ -67,9 +67,9 @@ describe("GET /favorites", () => {
       .set("Authorization", `Bearer ${token}`);
 
     expect(response.status).toBe(200);
-    expect(response.body).toBeInstanceOf(Object);
-    expect(response.body).toHaveProperty("UserId", expect.any(Number));
-    expect(response.body).toHaveProperty("GameId", expect.any(Number));
+    expect(response.body[0]).toBeInstanceOf(Object);
+    expect(response.body[0]).toHaveProperty("UserId", expect.any(Number));
+    expect(response.body[0]).toHaveProperty("GameId", expect.any(Number));
   });
 
   test("should be failed if not logged in", async () => {
@@ -105,8 +105,8 @@ describe("POST /favorites", () => {
 
     expect(response.status).toBe(201);
     expect(response.body).toBeInstanceOf(Object);
-    expect(response.body).toHaveProperty("UserId", expect.newFavorite.UserId);
-    expect(response.body).toHaveProperty("GameId", expect.newFavorite.GameId);
+    expect(response.body).toHaveProperty("UserId", newFavorite.UserId);
+    expect(response.body).toHaveProperty("GameId", newFavorite.GameId);
   });
 
   test("should be failed if not logged in", async () => {
@@ -149,7 +149,7 @@ describe("DELETE /favorites/:id", () => {
 
   test("should be failed if token is invalid", async () => {
     let response = await request(app)
-      .delete("/favorites")
+      .delete("/favorites/1")
       .set("Authorization", "Bearer invalidToken");
 
     expect(response.status).toBe(401);

@@ -30,10 +30,10 @@ beforeAll(async () => {
 
 describe("POST /register", () => {
   test("should return username & email if success", async () => {
-    let response = (await request(app).post("/register")).send({
-      username: "janedoe",
-      email: "janedoe@example.com",
-      password: "secure",
+    let response = await request(app).post("/register").send({
+      username: "janedoe1",
+      email: "janedoe1@example.com",
+      password: "secure1",
     });
     expect(response.status).toBe(201);
     expect(response.body).toBeInstanceOf(Object);
@@ -42,7 +42,7 @@ describe("POST /register", () => {
   });
 
   test("should be failed if username is null", async () => {
-    let response = (await request(app).post("/register")).send({
+    let response = await request(app).post("/register").send({
       username: "",
       email: "janedoe@example.com",
       password: "secure",
@@ -53,7 +53,7 @@ describe("POST /register", () => {
   });
 
   test("should be failed if email is null", async () => {
-    let response = (await request(app).post("/register")).send({
+    let response = await request(app).post("/register").send({
       username: "janedoe",
       email: "",
       password: "secure",
@@ -64,7 +64,7 @@ describe("POST /register", () => {
   });
 
   test("should be failed if password is null", async () => {
-    let response = (await request(app).post("/register")).send({
+    let response = await request(app).post("/register").send({
       username: "janedoe",
       email: "janedoe@example.com",
       password: "",
@@ -146,7 +146,7 @@ describe("PUT /editProfile", () => {
   };
 
   test("should return success message if success", async () => {
-    let response = (await request(app).put("/editProfile"))
+    let response = await request(app).put("/editProfile")
       .set("Authorization", `Bearer ${token}`)
       .send(updatedUser);
 
@@ -165,7 +165,7 @@ describe("PUT /editProfile", () => {
       password: "",
     };
 
-    let response = (await request(app).put("/editProfile"))
+    let response = await request(app).put("/editProfile")
       .set("Authorization", `Bearer ${token}`)
       .send(invalidInput);
 
