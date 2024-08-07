@@ -28,6 +28,10 @@ function errorHandeler(err, req, res, next) {
       status = 404;
       message = "not found";
       break;
+    case "Forbidden":
+      status = 403;
+      message = "Forbidden";
+      break;
   }
 
   res.status(status).json({ message });

@@ -1,44 +1,45 @@
 const { Recipe } = require("../models");
 
 class RecipeController {
-  static async getAllrecipe(req, res ,next) {
+  static async getAllrecipe(req, res, next) {
     try {
       const data = await Recipe.findAll();
 
       res.status(200).json(data);
     } catch (error) {
-    next(error)
+      next(error);
     }
   }
 
-  static async getRecipebyId(req, res,next) {
+  static async getRecipebyId(req, res, next) {
     try {
       const { id } = req.params;
       const data = await Recipe.findByPk(id);
 
-      if(!data){
-        throw {name :"not found"}
+      if (!data) {
+        throw { name: "not found" };
       }
 
       res.status(200).json(data);
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
 
-  static async addRecipe(req, res) {
+  static async addRecipe(req, res, next) {
     try {
       let new_recipe = await Recipe.create({
         ...req.body,
         UserId: req.user.id,
       });
+
       res.status(201).json(new_recipe);
     } catch (error) {
-      console.log(error);
+      next(error);
     }
   }
 
-  static async editRecipe(req, res) {
+  static async editRecipe(req, res, next) {
     try {
       const { id } = req.params;
       const user_id = req.user.id;
@@ -47,6 +48,10 @@ class RecipeController {
 
       if (!recipe) {
         throw { name: "not found" };
+      }
+
+      if (user_id !== recipe.UserId) {
+        throw { name: "Forbidden" };
       }
 
       await Product.update(req.body, {
@@ -58,7 +63,7 @@ class RecipeController {
       let Updated_recipe = await Recipe.findByPk(id);
       res.status(200).json(Updated_recipe);
     } catch (error) {
-      console.log(error);
+      next(error);
     }
   }
 
@@ -82,8 +87,11 @@ class RecipeController {
           id: id,
         },
       });
+
+      res.status(200).json({ message: `delete recipe ${recipe.title} success` });
+
     } catch (error) {
-      console.log(error);
+      res.send(error);
     }
   }
 }
