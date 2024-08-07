@@ -1,8 +1,8 @@
 const express = require("express");
 const UserController = require("../controllers/UserController");
 const GameController = require("../controllers/GameController");
-const isAuthenticated = require("../middleware/isAuthenticated");
 const FavoriteController = require("../controllers/FavoriteController");
+const isAuthenticated = require("../middleware/isAuthenticated");
 const router = express.Router();
 
 router.post("/register", UserController.register);

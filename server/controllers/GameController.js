@@ -2,35 +2,35 @@ const { Game, User, Favorite } = require("../models");
 const { Op } = require("sequelize");
 
 class GameController {
-  static async readAllGames(req, res, next) {
+  static async readAllGames(req, res, next) {    
     try {
-      const { search, filter, sort, page } = req.query;
+      const { search, sort, page } = req.query;
       const options = {
         order: [["id"]],
       };
 
       if (search) {
         options.where = {
-          name: {
+          title: {
             [Op.iLike]: `%${search}%`,
           },
         };
       }
 
-      if (filter) {
-        options.where = {
-          categoryId: filter,
-        };
-      }
+      // if (filter) {
+      //   options.where = {
+      //     genre: filter,
+      //   };
+      // }
 
-      if (search && filter) {
-        options.where = {
-          name: {
-            [Op.iLike]: `%${search}%`,
-          },
-          categoryId: filter,
-        };
-      }
+      // if (search && filter) {
+      //   options.where = {
+      //     title: {
+      //       [Op.iLike]: `%${search}%`,
+      //     },
+      //     genre: filter,
+      //   };
+      // }
 
       if (sort) {
         const ordering = sort[0] === "-" ? "DESC" : "ASC";
@@ -58,7 +58,7 @@ class GameController {
       }
       const { count } = await Game.findAndCountAll(options);
 
-      let games = await Product.findAll(options);
+      let games = await Game.findAll(options);
 
       res.status(200).json({
         page: pageNumber,
@@ -68,7 +68,7 @@ class GameController {
         dataPerPage: limit,
       });
     } catch (error) {
-      next(error);
+      next(error); 
     }
   }
 

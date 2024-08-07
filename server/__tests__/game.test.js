@@ -48,9 +48,11 @@ beforeAll(async () => {
   }
 });
 
-describe("GET /pub/Games", () => {
+describe("GET /games", () => {
   test("success get all Games without query filter parameter", async () => {
-    let response = await request(app).get("/pub/Games");
+    let response = await request(app)
+      .get("/games")
+      .set("Authorization", `Bearer ${token}`);
 
     expect(response.status).toBe(200);
     expect(response.body).toBeInstanceOf(Object);
@@ -60,26 +62,57 @@ describe("GET /pub/Games", () => {
     expect(response.body).toHaveProperty("totalPage", expect.any(Number));
     expect(response.body).toHaveProperty("dataPerPage", expect.any(Number));
     expect(response.body.data[0]).toHaveProperty("id", expect.any(Number));
-    expect(response.body.data[0]).toHaveProperty("name", expect.any(String));
+    expect(response.body.data[0]).toHaveProperty("title", expect.any(String));
     expect(response.body.data[0]).toHaveProperty(
       "description",
       expect.any(String)
     );
-    expect(response.body.data[0]).toHaveProperty("price", expect.any(Number));
-    expect(response.body.data[0]).toHaveProperty("stock", expect.any(Number));
+    expect(response.body.data[0]).toHaveProperty("genre", expect.any(String));
     expect(response.body.data[0]).toHaveProperty("imgUrl", expect.any(String));
     expect(response.body.data[0]).toHaveProperty(
-      "FavoriteId",
-      expect.any(Number)
+      "releasedDate",
+      expect.any(Date)
     );
     expect(response.body.data[0]).toHaveProperty(
-      "authorId",
+      "metacriticRating",
       expect.any(Number)
     );
   });
 
-  test("GET /pub/Games?filter=[FavoriteId] success get all Games with query filter parameter", async () => {
-    let response = await request(app).get("/pub/Games?filter=1");
+  //   test("GET /games?filter=[genre] success get all Games with query filter parameter", async () => {
+  //     let response = await request(app)
+  //       .get("/games?filter=Action")
+  //       .set("Authorization", `Bearer ${token}`);
+
+  //     expect(response.status).toBe(200);
+  //     expect(response.body).toBeInstanceOf(Object);
+  //     expect(response.body).toHaveProperty("page", expect.any(Number));
+  //     expect(response.body).toHaveProperty("data", expect.any(Array));
+  //     expect(response.body).toHaveProperty("totalData", expect.any(Number));
+  //     expect(response.body).toHaveProperty("totalPage", expect.any(Number));
+  //     expect(response.body).toHaveProperty("dataPerPage", expect.any(Number));
+  //     expect(response.body.data[0]).toHaveProperty("id", expect.any(Number));
+  //     expect(response.body.data[0]).toHaveProperty("title", expect.any(String));
+  //     expect(response.body.data[0]).toHaveProperty(
+  //       "description",
+  //       expect.any(String)
+  //     );
+  //     expect(response.body.data[0]).toHaveProperty("genre", expect.any(String));
+  //     expect(response.body.data[0]).toHaveProperty("imgUrl", expect.any(String));
+  //     expect(response.body.data[0]).toHaveProperty(
+  //       "releasedDate",
+  //       expect.any(Date)
+  //     );
+  //     expect(response.body.data[0]).toHaveProperty(
+  //       "metacriticRating",
+  //       expect.any(Number)
+  //     );
+  //   });
+
+  test("GET /games?page[number]=[pageNumber] success get all Games with correct number of data per page", async () => {
+    let response = await request(app)
+      .get("/games?page[number]=2")
+      .set("Authorization", `Bearer ${token}`);
 
     expect(response.status).toBe(200);
     expect(response.body).toBeInstanceOf(Object);
@@ -89,75 +122,96 @@ describe("GET /pub/Games", () => {
     expect(response.body).toHaveProperty("totalPage", expect.any(Number));
     expect(response.body).toHaveProperty("dataPerPage", expect.any(Number));
     expect(response.body.data[0]).toHaveProperty("id", expect.any(Number));
-    expect(response.body.data[0]).toHaveProperty("name", expect.any(String));
+    expect(response.body.data[0]).toHaveProperty("title", expect.any(String));
     expect(response.body.data[0]).toHaveProperty(
       "description",
       expect.any(String)
     );
-    expect(response.body.data[0]).toHaveProperty("price", expect.any(Number));
-    expect(response.body.data[0]).toHaveProperty("stock", expect.any(Number));
+    expect(response.body.data[0]).toHaveProperty("genre", expect.any(String));
     expect(response.body.data[0]).toHaveProperty("imgUrl", expect.any(String));
     expect(response.body.data[0]).toHaveProperty(
-      "FavoriteId",
-      expect.any(Number)
+      "releasedDate",
+      expect.any(Date)
     );
     expect(response.body.data[0]).toHaveProperty(
-      "authorId",
+      "metacriticRating",
       expect.any(Number)
     );
   });
 
-  test("GET /pub/Games?page[number]=[pageNumber] success get all Games with correct number of data per page", async () => {
-    let response = await request(app).get("/pub/Games?page[number]=2");
+  test("should be failed if not logged in", async () => {
+    let response = await request(app).get("/games");
 
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(401);
     expect(response.body).toBeInstanceOf(Object);
-    expect(response.body).toHaveProperty("page", expect.any(Number));
-    expect(response.body).toHaveProperty("data", expect.any(Array));
-    expect(response.body).toHaveProperty("totalData", expect.any(Number));
-    expect(response.body).toHaveProperty("totalPage", expect.any(Number));
-    expect(response.body).toHaveProperty("dataPerPage", expect.any(Number));
-    expect(response.body.data[0]).toHaveProperty("id", expect.any(Number));
-    expect(response.body.data[0]).toHaveProperty("name", expect.any(String));
-    expect(response.body.data[0]).toHaveProperty(
-      "description",
-      expect.any(String)
-    );
-    expect(response.body.data[0]).toHaveProperty("price", expect.any(Number));
-    expect(response.body.data[0]).toHaveProperty("stock", expect.any(Number));
-    expect(response.body.data[0]).toHaveProperty("imgUrl", expect.any(String));
-    expect(response.body.data[0]).toHaveProperty(
-      "FavoriteId",
-      expect.any(Number)
-    );
-    expect(response.body.data[0]).toHaveProperty(
-      "authorId",
-      expect.any(Number)
-    );
+    expect(response.body).toHaveProperty("message", "Error authentication");
+  });
+
+  test("should be failed if token is invalid", async () => {
+    let response = await request(app)
+      .get("/games")
+      .set("Authorization", "Bearer invalidToken");
+
+    expect(response.status).toBe(401);
+    expect(response.body).toBeInstanceOf(Object);
+    expect(response.body).toHaveProperty("message", "Error authentication");
   });
 });
 
-describe("GET /pub/Games/:id", () => {
-  test("success get Game based on params id", async () => {
-    let response = await request(app).get("/pub/Games/1");
+describe("GET /games/:id", () => {
+  test("success get game based on params id", async () => {
+    let response = await request(app)
+      .get("/games/1")
+      .set("Authorization", `Bearer ${token}`);
 
     expect(response.status).toBe(200);
     expect(response.body).toBeInstanceOf(Object);
-    expect(response.body).toHaveProperty("id", expect.any(Number));
-    expect(response.body).toHaveProperty("name", expect.any(String));
-    expect(response.body).toHaveProperty("description", expect.any(String));
-    expect(response.body).toHaveProperty("price", expect.any(Number));
-    expect(response.body).toHaveProperty("stock", expect.any(Number));
-    expect(response.body).toHaveProperty("imgUrl", expect.any(String));
-    expect(response.body).toHaveProperty("FavoriteId", expect.any(Number));
-    expect(response.body).toHaveProperty("authorId", expect.any(Number));
+    expect(response.body).toHaveProperty("page", expect.any(Number));
+    expect(response.body).toHaveProperty("data", expect.any(Array));
+    expect(response.body).toHaveProperty("totalData", expect.any(Number));
+    expect(response.body).toHaveProperty("totalPage", expect.any(Number));
+    expect(response.body).toHaveProperty("dataPerPage", expect.any(Number));
+    expect(response.body.data[0]).toHaveProperty("id", expect.any(Number));
+    expect(response.body.data[0]).toHaveProperty("title", expect.any(String));
+    expect(response.body.data[0]).toHaveProperty(
+      "description",
+      expect.any(String)
+    );
+    expect(response.body.data[0]).toHaveProperty("genre", expect.any(String));
+    expect(response.body.data[0]).toHaveProperty("imgUrl", expect.any(String));
+    expect(response.body.data[0]).toHaveProperty(
+      "releasedDate",
+      expect.any(Date)
+    );
+    expect(response.body.data[0]).toHaveProperty(
+      "metacriticRating",
+      expect.any(Number)
+    );
   });
 
   test("should be failed if Game is not in database", async () => {
-    let response = await request(app).get("/pub/Games/50");
+    let response = await request(app).get("/games/200");
 
     expect(response.status).toBe(404);
     expect(response.body).toBeInstanceOf(Object);
     expect(response.body).toHaveProperty("message", "Data not found");
+  });
+
+  test("should be failed if not logged in", async () => {
+    let response = await request(app).get("/games/200");
+
+    expect(response.status).toBe(401);
+    expect(response.body).toBeInstanceOf(Object);
+    expect(response.body).toHaveProperty("message", "Error authentication");
+  });
+
+  test("should be failed if token is invalid", async () => {
+    let response = await request(app)
+      .get("/games/1")
+      .set("Authorization", "Bearer invalidToken");
+
+    expect(response.status).toBe(401);
+    expect(response.body).toBeInstanceOf(Object);
+    expect(response.body).toHaveProperty("message", "Error authentication");
   });
 });

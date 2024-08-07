@@ -84,7 +84,7 @@ describe("POST /login", () => {
 
     expect(response.status).toBe(200);
     expect(response.body).toBeInstanceOf(Object);
-    expect(response.body).toHaveProperty("accessToken", expect.any(String));
+    expect(response.body).toHaveProperty("access_token", expect.any(String));
   });
 
   test("should be failed if email is null", async () => {
@@ -169,8 +169,26 @@ describe("PUT /editProfile", () => {
       .set("Authorization", `Bearer ${token}`)
       .send(invalidInput);
 
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(400);
     expect(response.body).toBeInstanceOf(Object);
     expect(response.body).toHaveProperty("message", expect.any(String));
+  });
+
+  test("should be failed if not logged in", async () => {
+    let response = await request(app).put("/editProfile");
+
+    expect(response.status).toBe(401);
+    expect(response.body).toBeInstanceOf(Object);
+    expect(response.body).toHaveProperty("message", "Error authentication");
+  });
+
+  test("should be failed if token is invalid", async () => {
+    let response = await request(app)
+      .put("/editProfile")
+      .set("Authorization", "Bearer invalidToken");
+
+    expect(response.status).toBe(401);
+    expect(response.body).toBeInstanceOf(Object);
+    expect(response.body).toHaveProperty("message", "Error authentication");
   });
 });

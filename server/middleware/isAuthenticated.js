@@ -3,12 +3,12 @@ const { User } = require("../models");
 
 async function isAuthenticated(req, res, next) {
   try {
-    let accessToken = req.headers.authorization;
+    let access_token = req.headers.authorization;
 
-    if (!accessToken) {
+    if (!access_token) {
       throw { name: "invalid-token" };
     }
-    let [bearer, token] = accessToken.split(" ");
+    let [bearer, token] = access_token.split(" ");
 
     if (bearer !== "Bearer") {
       throw { name: "invalid-token" };
@@ -16,7 +16,7 @@ async function isAuthenticated(req, res, next) {
 
     let payload = verifyToken(token);
 
-    let user = await User.findByPk(payload.authorId);
+    let user = await User.findByPk(payload.id);
 
     if (!user) {
       throw { name: "invalid-token" };

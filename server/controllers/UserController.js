@@ -1,4 +1,4 @@
-const { comparePassword } = require("../helpers/bcrypt");
+const { comparePassword, hashPassword } = require("../helpers/bcrypt");
 const { signToken } = require("../helpers/jwt");
 const { User } = require("../models");
 
@@ -42,22 +42,28 @@ class UserController {
         throw { name: "invalid-user" };
       }
 
-      const accessToken = signToken({ id: user.id });
-      res.status(200).json({ accessToken });
+      const access_token = signToken({ id: user.id });
+      res.status(200).json({ access_token });
     } catch (error) {
       next(error);
     }
   }
 
   static async editProfile(req, res, next) {
+    const { id } = req.user;
     const { username, email, password } = req.body;
 
     try {
-      const updatedUser = await User.update({
-        username,
-        email,
-        password,
-      });
+      const updatedUser = await User.update(
+        {
+          username,
+          email,
+          password: hashPassword(password),
+        },
+        {
+          where: { id },
+        }
+      );
       res.status(200).json({
         message: `Success update user profile`,
       });

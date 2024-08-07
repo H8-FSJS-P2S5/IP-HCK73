@@ -16,6 +16,11 @@ function errorHandler(err, req, res, next) {
       message = "Password is required";
       break;
 
+    case "existed-game":
+      code = 400;
+      message = "Already added to favorites";
+      break;
+
     case "invalid-user":
       code = 401;
       message = "Error invalid email or password";
