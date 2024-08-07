@@ -21,7 +21,7 @@ class UserController {
         password : password
       });
 
-        res.status(200).json({name,email})      
+        res.status(201).json({name,email})      
     } catch (error) {
         next(error)
     }
@@ -93,7 +93,7 @@ class UserController {
         async function run() {
 
             const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
-          
+            
             const prompt = `dont answer anything not about food ,and if the prompt not about food just answer just answer "i am Cooker not (and add the promp)" .${promp} , and the answer should be in format title: ingredients: without any decoraion`
           
             const result = await model.generateContent(prompt);

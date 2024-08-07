@@ -54,7 +54,7 @@ class RecipeController {
         throw { name: "Forbidden" };
       }
 
-      await Product.update(req.body, {
+      await Recipe.update(req.body, {
         where: {
           id: id,
         },
@@ -67,7 +67,7 @@ class RecipeController {
     }
   }
 
-  static async deleteRecipe(req, res) {
+  static async deleteRecipe(req, res,next) {
     try {
       const { id } = req.params;
       const user_id = req.user.id;
@@ -91,7 +91,7 @@ class RecipeController {
       res.status(200).json({ message: `delete recipe ${recipe.title} success` });
 
     } catch (error) {
-      res.send(error);
+      next(error)
     }
   }
 }
