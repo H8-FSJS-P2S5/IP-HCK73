@@ -9,6 +9,7 @@ const isAuthorize = require("../middleware/isAuthorize");
 // user
 router.post('/register', UserController.register)
 router.post('/login', UserController.login)
+router.post('/auth/google', UserController.googleLogin);
 
 // Airports & Reviews
 router.get('/airports', isAuthenticate, AirportController.getAirport)

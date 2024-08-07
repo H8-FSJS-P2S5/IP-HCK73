@@ -1,6 +1,11 @@
+require('dotenv').config();
+const { OAuth2Client } = require('google-auth-library');
+const jwt = require('jsonwebtoken');
+const axios = require('axios');
+const { User } = require('../models');
 const { comparePassword } = require('../helpers/bcrypt');
 const { signToken } = require('../helpers/jwt');
-const { User } = require('../models');
+const client = new OAuth2Client();
 
 class UserController {
   static async register(req, res, next) {
@@ -20,7 +25,7 @@ class UserController {
   }
 
   static async login(req, res, next) {
-    const { email, password } = req.body;
+    const { email, password } = req.body
     try {
       if (!email || !password) {
         throw { name: 'invalid-input' };
@@ -39,6 +44,34 @@ class UserController {
 
       res.status(200).json({ access_token: token });
     } catch (error) {
+      next(error)
+    }
+  }
+
+  static async googleLogin(req, res, next) {
+    const { email, googleToken } = req.body
+    try {
+      const ticket = await client.verifyIdToken({
+        idToken: googleToken,
+        audience: process.env.GOOGLE_CLIENT_ID,
+      });
+      const payload = ticket.getPayload();
+      const [user, created] = await User.findOrCreate({
+        where: { email },
+        defaults: {
+          name: payload.name,
+          email: payload.email,
+          picture: payload.picture,
+          provider: 'google',
+          password: 'google_id' // placeholder
+        },
+        hooks: false
+      });
+      const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
+      res.status(created ? 201 : 200).json({ access_token: token });
+    } catch (error) {
+      console.log(error);
+      
       next(error)
     }
   }
