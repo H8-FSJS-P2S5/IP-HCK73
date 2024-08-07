@@ -15,8 +15,7 @@ class UserController {
         email: createUser.email
       });
     } catch (error) {
-      console.log(error);
-      res.status(500).json({ error: 'Internal Server Error' });
+      next(error)
     }
   }
 
@@ -40,14 +39,7 @@ class UserController {
 
       res.status(200).json({ access_token: token });
     } catch (error) {
-      console.log(error);
-      if (error.name === 'invalid-input') {
-        res.status(400).json({ error: 'Invalid input' });
-      } else if (error.name === 'invalid-user') {
-        res.status(401).json({ error: 'Invalid email or password' });
-      } else {
-        res.status(500).json({ error: 'Internal Server Error' });
-      }
+      next(error)
     }
   }
 }
