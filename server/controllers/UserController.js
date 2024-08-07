@@ -49,6 +49,19 @@ class UserController {
     }
   }
 
+  static async getUser(req, res, next) {
+    const { id } = req.user;
+    try {
+      let findUser = await User.findByPk(+id ,{
+        attributes: {exclude: ["password"]}
+      });
+
+      res.status(200).json(findUser);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   static async editProfile(req, res, next) {
     const { id } = req.user;
     const { username, email, password } = req.body;

@@ -7,6 +7,7 @@ const router = express.Router();
 
 router.post("/register", UserController.register);
 router.post("/login", UserController.login);
+router.get("/user", isAuthenticated, UserController.getUser);
 router.put("/editProfile", isAuthenticated, UserController.editProfile);
 
 router.get("/games", isAuthenticated, GameController.readAllGames);
