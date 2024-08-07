@@ -10,36 +10,45 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
-      Review.belongsTo(models.User)
-      Review.belongsTo(models.Airport)
+      Review.belongsTo(models.User);
+      Review.belongsTo(models.Airport);
     }
   }
   Review.init({
-    UserId: DataTypes.INTEGER,
-    AirportId: DataTypes.INTEGER,
-    rate: DataTypes.INTEGER,
-    allowNull: false,
-    validate: {
-      notNull: {
-        args: true,
-        msg: 'Rate required'
-      },
-      notEmpty: {
-        args: true,
-        msg: 'Rate required'
+    UserId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    AirportId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    rate: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: 'Rate required'
+        },
+        notEmpty: {
+          args: true,
+          msg: 'Rate required'
+        }
       }
     },
-    comment: DataTypes.TEXT,
-    allowNull: false,
-    validate: {
-      notNull: {
-        args: true,
-        msg: 'Comment required'
-      },
-      notEmpty: {
-        args: true,
-        msg: 'Comment required'
+    comment: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: 'Comment required'
+        },
+        notEmpty: {
+          args: true,
+          msg: 'Comment required'
+        }
       }
     }
   }, {

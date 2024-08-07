@@ -11,49 +11,55 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
-      User.hasMany(models.Review)
+      User.hasMany(models.Review);
     }
   }
   User.init({
-    email: DataTypes.STRING,
-    allowNull: false,
-    unique: {
-      args: true,
-      msg: 'Email must be unique'
-    },
-    validate: {
-      notNull: {
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: {
         args: true,
-        msg: 'Email required'
+        msg: 'Email must be unique'
       },
-      notEmpty: {
-        args: true,
-        msg: 'Email required'
-      },
-      isEmail: {
-        args: true,
-        msg: 'Wrong email format'
+      validate: {
+        notNull: {
+          args: true,
+          msg: 'Email required'
+        },
+        notEmpty: {
+          args: true,
+          msg: 'Email required'
+        },
+        isEmail: {
+          args: true,
+          msg: 'Wrong email format'
+        }
       }
     },
-    password: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      notNull: {
-        args: true,
-        msg: 'Password required'
-      },
-      notEmpty: {
-        args: true,
-        msg: 'Password required'
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: 'Password required'
+        },
+        notEmpty: {
+          args: true,
+          msg: 'Password required'
+        }
       }
     }
   }, {
     sequelize,
     modelName: 'User',
+    hooks: {
+      beforeCreate: (user) => {
+        user.password = hashPassword(user.password);
+      }
+    }
   });
-  User.beforeBulkCreate((user) => {
-    user.password = hashPassword(user.password)
-  })
+  
   return User;
 };
