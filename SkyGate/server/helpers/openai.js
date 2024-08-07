@@ -1,7 +1,7 @@
 const { OpenAI } = require('openai')
 require('dotenv').config()
 
-module.exports =  async function openAI() {
+module.exports =  async function openAI(prompt) {
     const openai = new OpenAI({
         apiKey: process.env.OPENAI_API_KEY
     })
@@ -9,12 +9,15 @@ module.exports =  async function openAI() {
         messages: [
             { 
                 role: "system",
-                content: "Aktivitas apa saja yang bisa saya lakukan di GBK?. The response must be a JSON"
+                content: prompt
             }
         ],
         model: "gpt-4o-mini",
-      });
-    
-    //   console.log(completion.choices[0].message.content);
+      }, {
+        headers: {
+            'Content-Type': 'application/json',
+            'response_type': 'json_object'
+        }
+    });    
     return completion.choices[0].message.content 
 }

@@ -1,5 +1,6 @@
 const { Op } = require('sequelize')
 const { Airport, Review } = require('../models')
+const openAI = require('../helpers/openai')
 class AirportController {
     static async getAirport(req, res, next) {
         const { page, search } = req.query
@@ -105,7 +106,7 @@ class AirportController {
             }
 
             let updateReview = await Review.update(req.body, {
-                where: {id}
+                where: { id }
             })
             updateReview = await Review.findByPk(id)
             res.status(200).json(updateReview)
@@ -115,17 +116,69 @@ class AirportController {
     }
 
     static async deleteReview(req, res, next) {
-        const {id} = req.params
+        const { id } = req.params
         try {
             let review = await Review.findByPk(id)
             if (!review) {
                 throw { name: 'review-not-found' }
             }
             await Review.destroy({
-                where: {id}
+                where: { id }
             })
-            res.status(200).json({message: 'Review has been deleted'})
+            res.status(200).json({ message: 'Review has been deleted' })
         } catch (error) {
+            next(error)
+        }
+    }
+
+    static async chatbot(req, res, next) {
+        const { airportCode } = req.params
+        const { question } = req.body
+        try {
+            const airport = await Airport.findOne({
+                where: { airportCode }
+            })
+            if (!airport) {
+                throw { name: 'airport-not-found' }
+            }
+            const prompt = `${question} near ${airport.name}. Please make the output consistent as json like this:   
+            {
+          "airport": "<airport name>",
+          "location": "<airport location>",
+          "activities": [
+            {
+              "name": "<activities name>",
+              "description": "<activities description>",
+              "distanceFromAirport": "<activities distance from airport>",
+              "category": "<activities category>",
+              "imageUrl": "<activities image url (please provide real picture)>"
+            }
+          ],
+          "sightseeing": [
+            {
+              "name": "<sightseeing name>",
+              "description": "<sightseeing description>",
+              "distanceFromAirport": "<sightseeing distance from airport>",
+              "category": "<sightseeing category>",
+              "imageUrl": "<sightseeing image url (please provide real picture)>"
+            }
+          ],
+          "accommodations": [
+            {
+              "name": "<accommodations name>",
+              "description": "<accommodations description>",
+              "distanceFromAirport": "<accommodations distance from airport>",
+              "category": "<accommodations category>",
+              "imageUrl": "<accommodations image url (please provide real picture)>"
+            }
+          ]
+        }`
+            const openAiResponse = await openAI(prompt)
+            const cleanResponse = openAiResponse.replace(/```json|```/g, '').trim()
+            const jsonResponse = JSON.parse(cleanResponse)
+            res.status(200).json({ response: jsonResponse })
+        } catch (error) {
+            console.log(error);
             next(error)
         }
     }
