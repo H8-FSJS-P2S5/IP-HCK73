@@ -1,7 +1,6 @@
 require('dotenv').config();
 const { OAuth2Client } = require('google-auth-library');
 const jwt = require('jsonwebtoken');
-const axios = require('axios');
 const { User } = require('../models');
 const { comparePassword } = require('../helpers/bcrypt');
 const { signToken } = require('../helpers/jwt');
@@ -49,7 +48,7 @@ class UserController {
   }
 
   static async googleLogin(req, res, next) {
-    const { email, googleToken } = req.body
+    const { googleToken } = req.body
     try {
       const ticket = await client.verifyIdToken({
         idToken: googleToken,
@@ -57,7 +56,7 @@ class UserController {
       });
       const payload = ticket.getPayload();
       const [user, created] = await User.findOrCreate({
-        where: { email },
+        where: { email: payload.email },
         defaults: {
           name: payload.name,
           email: payload.email,
