@@ -13,11 +13,7 @@ module.exports =  async function openAI(prompt) {
             }
         ],
         model: "gpt-4o-mini",
-      }, {
-        headers: {
-            'Content-Type': 'application/json',
-            'response_type': 'json_object'
-        }
-    });    
+        response_format: {"type": "json_object"}
+        })
     return completion.choices[0].message.content 
 }

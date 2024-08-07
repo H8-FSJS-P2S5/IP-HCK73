@@ -143,40 +143,40 @@ class AirportController {
             }
             const prompt = `${question} near ${airport.name}. Please make the output consistent as json like this:   
             {
-          "airport": "<airport name>",
-          "location": "<airport location>",
-          "activities": [
-            {
-              "name": "<activities name>",
-              "description": "<activities description>",
-              "distanceFromAirport": "<activities distance from airport>",
-              "category": "<activities category>",
-              "imageUrl": "<activities image url (please provide real picture)>"
-            }
-          ],
-          "sightseeing": [
-            {
-              "name": "<sightseeing name>",
-              "description": "<sightseeing description>",
-              "distanceFromAirport": "<sightseeing distance from airport>",
-              "category": "<sightseeing category>",
-              "imageUrl": "<sightseeing image url (please provide real picture)>"
-            }
-          ],
-          "accommodations": [
-            {
-              "name": "<accommodations name>",
-              "description": "<accommodations description>",
-              "distanceFromAirport": "<accommodations distance from airport>",
-              "category": "<accommodations category>",
-              "imageUrl": "<accommodations image url (please provide real picture)>"
-            }
-          ]
-        }`
-            const openAiResponse = await openAI(prompt)
-            const cleanResponse = openAiResponse.replace(/```json|```/g, '').trim()
-            const jsonResponse = JSON.parse(cleanResponse)
-            res.status(200).json({ response: jsonResponse })
+                "airport": "<airport name>",
+                "location": "<airport location>",
+                "activities": [
+                    {
+                    "name": "<activities name>",
+                    "description": "<activities description>",
+                    "distanceFromAirport": "<activities distance from airport>",
+                    "category": "<activities category>",
+                    "imageUrl": "<activities image url (please provide real picture)>"
+                    }
+                ],
+                "sightseeing": [
+                    {
+                    "name": "<sightseeing name>",
+                    "description": "<sightseeing description>",
+                    "distanceFromAirport": "<sightseeing distance from airport>",
+                    "category": "<sightseeing category>",
+                    "imageUrl": "<sightseeing image url (please provide real picture)>"
+                    }
+                ],
+                "accommodations": [
+                    {
+                    "name": "<accommodations name>",
+                    "description": "<accommodations description>",
+                    "distanceFromAirport": "<accommodations distance from airport>",
+                    "category": "<accommodations category>",
+                    "imageUrl": "<accommodations image url (please provide real picture)>"
+                    }
+                ]
+            }`
+        
+        const openAiResponse = await openAI(prompt)
+        const jsonResponse = JSON.parse(openAiResponse)
+        res.status(200).json({ response: jsonResponse })
         } catch (error) {
             console.log(error);
             next(error)
