@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 const LoginPage = () => {
     return (
         <div className="bg-white font-outfit">
@@ -95,12 +97,11 @@ const LoginPage = () => {
                             </form>
                             <p className="mt-6 text-sm text-center text-gray-400">
                                 Don't have an account yet?{" "}
-                                <a
-                                    href="#"
+                                <Link to={'/register'}
                                     className="text-blue-500 focus:outline-none focus:underline hover:underline"
                                 >
                                     Sign up
-                                </a>
+                                </Link>
                                 .
                             </p>
                             <div className="flex items-center justify-between mt-7">
