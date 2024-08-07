@@ -1,6 +1,37 @@
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import instance from "../helpers/instance";
 const GameCard = (props) => {
   let { game } = props;
+
+  //   const HandleAddFavorites = async (e) => {
+  //     e.preventDefault();
+  //     try {
+  //       let { data } = await instance({
+  //         url: `/favorites`,
+  //         method: "POST",
+  //         headers: {
+  //           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+  //         },
+  //         data: {
+  //           UserId,
+  //           GameId,
+  //         },
+  //       });
+  //     } catch (error) {
+  //       if (error.response) {
+  //         Swal.fire({
+  //           icon: "error",
+  //           title: "Oops...",
+  //           text: error.response.data.message,
+  //           confirmButtonText: "OK",
+  //           confirmButtonColor: "#2563eb",
+  //           background: "#151515",
+  //           color: "white",
+  //         });
+  //       }
+  //     }
+  //   };
 
   return (
     <div className="overflow-hidden">
@@ -10,7 +41,7 @@ const GameCard = (props) => {
           className="w-full h-[150px] overflow-hidden mx-auto aspect-w-16 aspect-h-8"
         >
           <img
-            alt="game"
+            alt={game.title}
             className="h-full w-full object-cover rounded-lg hover:opacity-80"
             src={game.imgUrl}
           />
@@ -46,10 +77,50 @@ const GameCard = (props) => {
             </h4>
           </div>
         </div>
-        <div className="p-2 flex justify-between gap-x-2">
+        <form
+          onSubmit={async (e) => {
+            e.preventDefault();
+            try {
+              await instance({
+                url: `/favorites`,
+                method: "POST",
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem(
+                    "access_token"
+                  )}`,
+                },
+                data: {
+                  GameId: game.id,
+                },
+              });
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                text: `Success add ${game.title} to favorites`,
+                showConfirmButton: false,
+                timer: 2000,
+                background: "#151515",
+                color: "white",
+              });
+            } catch (error) {
+              if (error.response) {
+                Swal.fire({
+                  icon: "error",
+                  title: "Oops...",
+                  text: error.response.data.message,
+                  confirmButtonText: "OK",
+                  confirmButtonColor: "#2563eb",
+                  background: "#151515",
+                  color: "white",
+                });
+              }
+            }
+          }}
+          className="p-2 flex justify-between gap-x-2"
+        >
           <button
             className="bg-gray-700 font-semibold hover:bg-gray-800 text-white text-sm px-2 py-2.5 w-full rounded-lg flex gap-x-1 justify-center"
-            type="button"
+            type="submit"
           >
             <svg
               class="w-[20px] h-[20px] text-white"
@@ -70,7 +141,7 @@ const GameCard = (props) => {
             </svg>
             Favorites
           </button>
-          <Link to={`games/${game.id}`} className="w-full">
+          <Link to={`/games/${game.id}`} className="w-full">
             <button
               className="bg-sky-800 font-semibold hover:bg-sky-900 text-white text-sm px-2 py-2.5 w-full rounded-lg"
               type="button"
@@ -78,45 +149,9 @@ const GameCard = (props) => {
               Details
             </button>
           </Link>
-        </div>
+        </form>
       </div>
     </div>
-    // <Link
-    //   to={`/games/${el.id}`}
-    //   className="w-11/12 max-w-sm rounded-lg overflow-hidden mx-auto font-[sans-serif] mt-4"
-    // >
-    //   <div className="min-h-[128px]">
-    //     <img
-    //       className="w-full rounded-lg hover:contrast-[.75] hover:brightness-[1.25] transition-all duration-200"
-    //       src={el.imgUrl}
-    //     />
-    //   </div>
-    //   <div className="p-2">
-    //     <h3 className="text-white text-xl font-bold">{el.title}</h3>
-    //     <div className="flex justify-between pt-4">
-    //       <p className="text-sm text-gray-400 leading-relaxed">
-    //         Genre {el.genre}
-    //       </p>
-    //       <p className="text-sm text-gray-400 leading-relaxed">
-    //         Rating {el.metacriticRating}
-    //       </p>
-    //     </div>
-    //     <div className="flex justify-between pt-4">
-    //       <button
-    //         className="mt-6 px-5 py-2.5 rounded-lg text-white text-sm tracking-wider border-none outline-none bg-blue-600 hover:bg-blue-700 active:bg-blue-600 w-full"
-    //         type="button"
-    //       >
-    //         Add to Favorites
-    //       </button>
-    //       <button
-    //         className="mt-6 px-5 py-2.5 rounded-lg text-white text-sm tracking-wider border-none outline-none bg-blue-600 hover:bg-blue-700 active:bg-blue-600 w-full"
-    //         type="button"
-    //       >
-    //         View Details
-    //       </button>
-    //     </div>
-    //   </div>
-    // </Link>
   );
 };
 

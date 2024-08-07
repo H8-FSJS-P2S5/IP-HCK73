@@ -20,7 +20,6 @@ const Navbar = () => {
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
       });
-      console.log(data, "<<<<<<<<<<");
 
       setUser(data);
     } catch (error) {

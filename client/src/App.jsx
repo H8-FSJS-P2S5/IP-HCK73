@@ -6,6 +6,7 @@ import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
 import GameDetails from "./pages/GameDetails";
 import Profile from "./pages/Profile";
+import Favorites from "./pages/Favorites";
 // import './App.css'
 
 const router = createBrowserRouter([
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: "/games/:id",
         element: <GameDetails />,
+      },
+      {
+        path: "/favorites",
+        element: <Favorites />,
       },
       {
         path: "/profile",
