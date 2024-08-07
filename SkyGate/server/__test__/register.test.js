@@ -34,16 +34,6 @@ describe('POST /register', () => {
         expect(response.body).toHaveProperty('id', expect.any(Number))
         expect(response.body).toHaveProperty('email', newUser.email)
     })
-    // test('POST /register with duplicate email should return 400', async () => {
-    //     let newUser = {
-    //         "email": "admin@mail.com",
-    //         "password": "12345"
-    //     }
-    //     let response = await request(app).post('/register').send(newUser, userNew)
-    //     expect(response.status).toBe(400)
-    //     expect(response.body).toBeInstanceOf(Object)
-    //     expect(response.body).toHaveProperty('message', 'Email must be unique')
-    // })
     test('POST /register without email shouold return 400', async () => {
         let otherUser = {
             "password": "12345"
