@@ -15,6 +15,19 @@ function errorHandler(err, req, res, next) {
             status = 401;
             message = 'Invalid email or password'
             break;
+        case "invalid-token":
+        case "JsonWebTokenError":
+            status = 401;
+            message = "Access denied. Login required";
+            break;
+        case "forbidden":
+            status = 403;
+            message = "Forbidden";
+            break;
+        case "airport-not-found":
+            status = 404;
+            message = 'Airport not found'
+            break;
         default:
             status = 500;
             message = "Internal Server Error"

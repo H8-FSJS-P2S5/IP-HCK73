@@ -1,5 +1,5 @@
 const { Op } = require('sequelize')
-const { Airport } = require('../models')
+const { Airport, Review } = require('../models')
 class AirportController {
     static async getAirport(req, res, next) {
         const { page, search } = req.query
@@ -45,6 +45,52 @@ class AirportController {
                 totalPage: Math.ceil(count / limit),
                 dataPerPage: limit,
             })
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    static async getAirportDetail(req, res, next) {
+        const { airportCode } = req.params
+        try {
+            let airportDetail = await Airport.findOne({
+                where: {
+                    airportCode,
+                },
+                include:{
+                    model: Review
+                }
+                 
+            })
+            if (!airportDetail) {
+                throw { name: 'airport-not-found' }
+            }
+            res.status(200).json(airportDetail)
+        } catch (error) {
+            console.log(error);
+            
+            next(error)
+        }
+    }
+
+    static async addReview(req, res, next) {
+        const { airportCode } = req.params
+        const { rate, comment } = req.body
+        try {
+            let airport = await Airport.findOne({
+                where: { airportCode }
+            })
+            if (!airport) {
+                throw { name: 'airport-not-found' }
+            }
+
+            const newReview = await Review.create({
+                UserId: req.user.id,
+                AirportId: airport.id,
+                rate,
+                comment
+            })
+            res.status(201).json(newReview)
         } catch (error) {            
             next(error)
         }
