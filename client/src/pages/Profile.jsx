@@ -74,17 +74,10 @@ const Profile = () => {
 
   return (
     <div className="font-[sans-serif] relative">
-      <div className="h-[240px] font-[sans-serif]">
-        <img
-          alt="Banner Image"
-          className="w-full h-full object-cover"
-          src="https://readymadeui.com/cardImg.webp"
-        />
-      </div>
-      <div className="relative -mt-40 m-4">
+      <div className="relative m-4">
         <form
           onSubmit={HandleEditProfile}
-          className="bg-[#151515] max-w-xl w-full mx-auto shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] p-8 rounded-2xl"
+          className="bg-[#151515] max-w-xl w-full mx-auto shadow-lg p-8 rounded-2xl"
         >
           <div className="mb-12">
             <h3 className="text-white text-3xl font-bold text-center">
@@ -173,7 +166,7 @@ const Profile = () => {
                 disabled
               />
               <svg
-                class="w-[24px] h-[24px] text-gray-400 absolute right-2"
+                className="w-[24px] h-[24px] text-gray-400 absolute right-2"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"

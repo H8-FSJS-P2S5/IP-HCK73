@@ -5,29 +5,6 @@ const FavoriteCard = (props) => {
   let { favorite } = props;
 
   const HandleDeleteFavorite = async (id) => {
-    // try {
-    //   let { data } = await instance({
-    //     url: `/favorites/${id}`,
-    //     method: "DELETE",
-    //     headers: {
-    //       Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-    //     },
-    //   });
-    // } catch (error) {
-    //   if (error.response) {
-    //     Swal.fire({
-    //       icon: "error",
-    //       title: "Oops...",
-    //       text: error.response.data.message,
-    //       confirmButtonText: "OK",
-    //       confirmButtonColor: "#2563eb",
-    //       background: "#151515",
-    //       color: "white",
-    //     });
-    //   }
-    // }
-    console.log(id, "<<<<<<< id", favorite.id);
-    
     try {
       Swal.fire({
         title: `Delete ${favorite.Game.title}?`,
@@ -45,10 +22,9 @@ const FavoriteCard = (props) => {
               url: `/favorites/${id}`,
               method: "DELETE",
               headers: {
-                Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+                Authorization: `Bearer ${localStorage.getItem("access_token")}`,
               },
             });
-            ReadAllProduct();
             Swal.fire({
               title: "Deleted!",
               text: data.message,
@@ -82,7 +58,7 @@ const FavoriteCard = (props) => {
         });
       }
     }
-  }
+  };
 
   return (
     <div className="overflow-hidden">
@@ -139,7 +115,7 @@ const FavoriteCard = (props) => {
             onClick={() => HandleDeleteFavorite(favorite.id)}
           >
             <svg
-              class="w-[20px] h-[20px] text-white"
+              className="w-[20px] h-[20px] text-white"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"

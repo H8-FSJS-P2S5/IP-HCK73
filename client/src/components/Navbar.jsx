@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import instance from "../helpers/instance";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
   const [user, setUser] = useState("");
@@ -29,8 +30,21 @@ const Navbar = () => {
 
   const HandleLogout = (e) => {
     e.preventDefault();
-    localStorage.clear();
-    navigate("/login");
+    Swal.fire({
+      title: `Logout?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#b91c1c",
+      cancelButtonColor: "#075985",
+      confirmButtonText: "Yes",
+      background: "#151515",
+      color: "white",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.clear();
+        navigate("/login");
+      }
+    });
   };
 
   return (
@@ -150,7 +164,10 @@ const Navbar = () => {
             </Link>
 
             {/* User Profile */}
-            <Link to={"/profile"} className="relative flex flex-wrap items-center gap-x-1.5 md:ps-2.5 mt-1 md:mt-0 md:ms-1.5 before:block before:absolute before:top-1/2 before:-start-px before:w-px before:h-4 before:bg-gray-300 before:-translate-y-1/2">
+            <Link
+              to={"/profile"}
+              className="relative flex flex-wrap items-center gap-x-1.5 md:ps-2.5 mt-1 md:mt-0 md:ms-1.5 before:block before:absolute before:top-1/2 before:-start-px before:w-px before:h-4 before:bg-gray-300 before:-translate-y-1/2"
+            >
               <button className="p-2 w-full flex items-center text-sm text-[#c1c1c1] hover:text-white focus:outline-none focus:text-white">
                 <svg
                   className="shrink-0 size-4 me-3 md:me-2"
@@ -174,7 +191,7 @@ const Navbar = () => {
             <div className="relative flex flex-wrap items-center gap-x-1.5 md:ps-2.5 mt-1 md:mt-0 md:ms-1.5">
               <button
                 onClick={HandleLogout}
-                className="px-2 py-1 w-full border border-red-500 rounded-lg flex items-center text-sm text-[#c1c1c1] hover:text-white hover:bg-red-500 focus:outline-none focus:text-red-500"
+                className="px-2.5 py-1.5 w-full rounded-lg flex items-center text-sm text-white hover:bg-red-700 bg-red-600"
               >
                 Logout
               </button>

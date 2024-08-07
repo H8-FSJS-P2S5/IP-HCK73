@@ -64,14 +64,13 @@ class UserController {
 
   static async editProfile(req, res, next) {
     const { id } = req.user;
-    const { username, email, password } = req.body;
+    const { username, email } = req.body;
 
     try {
       const updatedUser = await User.update(
         {
           username,
           email,
-          password: hashPassword(password),
         },
         {
           where: { id },

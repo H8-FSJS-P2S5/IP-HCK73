@@ -123,7 +123,7 @@ const GameCard = (props) => {
             type="submit"
           >
             <svg
-              class="w-[20px] h-[20px] text-white"
+              className="w-[20px] h-[20px] text-white"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"

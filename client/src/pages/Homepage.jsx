@@ -49,13 +49,13 @@ const Homepage = () => {
   };
 
   return (
-    <div className="snap-y snap-mandatory overflow-scroll">
+    <div>
       {/* Headers */}
-      <div className="relative h-screen text-white overflow-hidden snap-start">
+      <div className="relative h-screen text-white overflow-hidden">
         <div className="absolute inset-0">
           <img
             alt="Background Image"
-            className="object-cover object-center w-full h-full"
+            className="object-cover object-center w-full h-full brightness-50"
             src="https://images5.alphacoders.com/131/1315219.jpeg"
           />
           <div className="absolute inset-0 bg-black opacity-50" />

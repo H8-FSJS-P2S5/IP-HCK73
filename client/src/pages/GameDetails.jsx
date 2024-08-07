@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import instance from "../helpers/instance";
+import Swal from "sweetalert2";
 
 const GameDetails = () => {
   const [game, setGame] = useState([]);
@@ -64,9 +65,49 @@ const GameDetails = () => {
                 {game.description}
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 py-8">
-                <button className="group py-4 px-5 rounded-xl bg-gray-700 text-white font-semibold text-lg w-full flex items-center justify-center gap-2 transition-all duration-500 hover:bg-gray-800">
+                <button
+                  className="group py-4 px-5 rounded-xl bg-gray-700 text-white font-semibold text-lg w-full flex items-center justify-center gap-2 transition-all duration-500 hover:bg-gray-800"
+                  onClick={async (e) => {
+                    e.preventDefault();
+                    try {
+                      await instance({
+                        url: `/favorites`,
+                        method: "POST",
+                        headers: {
+                          Authorization: `Bearer ${localStorage.getItem(
+                            "access_token"
+                          )}`,
+                        },
+                        data: {
+                          GameId: game.id,
+                        },
+                      });
+                      Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        text: `Success add ${game.title} to favorites`,
+                        showConfirmButton: false,
+                        timer: 2000,
+                        background: "#151515",
+                        color: "white",
+                      });
+                    } catch (error) {
+                      if (error.response) {
+                        Swal.fire({
+                          icon: "error",
+                          title: "Oops...",
+                          text: error.response.data.message,
+                          confirmButtonText: "OK",
+                          confirmButtonColor: "#2563eb",
+                          background: "#151515",
+                          color: "white",
+                        });
+                      }
+                    }
+                  }}
+                >
                   <svg
-                    class="w-[24px] h-[24px] text-white"
+                    className="w-[24px] h-[24px] text-white"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"

@@ -136,7 +136,7 @@ const Register = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 <svg
-                  class="w-[20px] h-[20px] text-gray-400 absolute right-2"
+                  className="w-[20px] h-[20px] text-gray-400 absolute right-2"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
