@@ -22,11 +22,15 @@ function errorHandler(err, req, res, next) {
             break;
         case "forbidden":
             status = 403;
-            message = "Forbidden";
+            message = "Forbidden access";
             break;
         case "airport-not-found":
             status = 404;
             message = 'Airport not found'
+            break;
+        case "review-not-found":
+            status = 404;
+            message = 'Review not found'
             break;
         default:
             status = 500;

@@ -57,10 +57,10 @@ class AirportController {
                 where: {
                     airportCode,
                 },
-                include:{
+                include: {
                     model: Review
                 }
-                 
+
             })
             if (!airportDetail) {
                 throw { name: 'airport-not-found' }
@@ -68,7 +68,7 @@ class AirportController {
             res.status(200).json(airportDetail)
         } catch (error) {
             console.log(error);
-            
+
             next(error)
         }
     }
@@ -91,7 +91,41 @@ class AirportController {
                 comment
             })
             res.status(201).json(newReview)
-        } catch (error) {            
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    static async updateReview(req, res, next) {
+        const { id } = req.params
+        try {
+            let review = await Review.findByPk(id)
+            if (!review) {
+                throw { name: 'review-not-found' }
+            }
+
+            let updateReview = await Review.update(req.body, {
+                where: {id}
+            })
+            updateReview = await Review.findByPk(id)
+            res.status(200).json(updateReview)
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    static async deleteReview(req, res, next) {
+        const {id} = req.params
+        try {
+            let review = await Review.findByPk(id)
+            if (!review) {
+                throw { name: 'review-not-found' }
+            }
+            await Review.destroy({
+                where: {id}
+            })
+            res.status(200).json({message: 'Review has been deleted'})
+        } catch (error) {
             next(error)
         }
     }
