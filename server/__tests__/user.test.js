@@ -192,3 +192,66 @@ describe("PUT /editProfile", () => {
     expect(response.body).toHaveProperty("message", "Error authentication");
   });
 });
+
+// describe("POST /auth/google", () => {
+//   test("success login should return google access token", async () => {
+//     let response = await request(app).post("/auth/google").send({
+//       email: "janedoe@gmail.com",
+//       password: "secure",
+//     });
+
+//     expect(response.status).toBe(200);
+//     expect(response.body).toBeInstanceOf(Object);
+//     expect(response.body).toHaveProperty("access_token", expect.any(String));
+//   });
+
+//   test("should be failed if email is null", async () => {
+//     let response = await request(app).post("/login").send({
+//       email: "",
+//       password: "secure",
+//     });
+
+//     expect(response.status).toBe(400);
+//     expect(response.body).toBeInstanceOf(Object);
+//     expect(response.body).toHaveProperty("message", "Email is required");
+//   });
+
+//   test("should be failed if password is null", async () => {
+//     let response = await request(app).post("/login").send({
+//       email: "janedoe@example.com",
+//       password: "",
+//     });
+
+//     expect(response.status).toBe(400);
+//     expect(response.body).toBeInstanceOf(Object);
+//     expect(response.body).toHaveProperty("message", "Password is required");
+//   });
+
+//   test("should be failed if email is invalid", async () => {
+//     let response = await request(app).post("/login").send({
+//       email: "janedoeeee@example.com",
+//       password: "secure",
+//     });
+
+//     expect(response.status).toBe(401);
+//     expect(response.body).toBeInstanceOf(Object);
+//     expect(response.body).toHaveProperty(
+//       "message",
+//       "Error invalid email or password"
+//     );
+//   });
+
+//   test("should be failed if password is not match", async () => {
+//     let response = await request(app).post("/login").send({
+//       email: "janedoe@example.com",
+//       password: "secure123",
+//     });
+
+//     expect(response.status).toBe(401);
+//     expect(response.body).toBeInstanceOf(Object);
+//     expect(response.body).toHaveProperty(
+//       "message",
+//       "Error invalid email or password"
+//     );
+//   });
+// });

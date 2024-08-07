@@ -1,20 +1,31 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 require("dotenv").config();
 
-const gemini = async (genre, data) => {
+const gemini = async (genre, games) => {
   // Access your API key as an environment variable (see "Set up your API key" above)
   const genAI = new GoogleGenerativeAI(process.env.GEMINI_AI_API_KEY);
 
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  const model = genAI.getGenerativeModel({
+    model: "gemini-1.5-flash",
+    generationConfig: { responseMimeType: "application/json" },
+  });
 
-    const prompt = `please give me game recommendations based on genre ${genre} referring to data ${data}. Response must be in JSON format.`;
+  const prompt = `please give me game top 3 recommendations based on genre ${genre} and metacritic rating, based on property genre of data from ${games}. The recommendations can't be get from internet or other sources, only get the recommendations based on the data provided. Response must be a format JSON like this:
+  [
+    {
+      "id": ...,
+      "genre": el.genre,
+      "imgUrl": el.imgUrl,
+      "metacriticRating": el.metacriticRating,
+    }, ...
+]. create without \`\`\`json and \`\`\``;
+  
+  const result = await model.generateContent(prompt);
+  const response = await result.response;
+  let text = response.text();
+  text = JSON.parse(text.trim());
 
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const text = response.text();
-    console.log(text);
-
-    return text
+  return text;
 };
 
 module.exports = gemini;

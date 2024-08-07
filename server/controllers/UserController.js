@@ -1,6 +1,8 @@
 const { comparePassword, hashPassword } = require("../helpers/bcrypt");
 const { signToken } = require("../helpers/jwt");
 const { User } = require("../models");
+const { OAuth2Client } = require("google-auth-library");
+const client = new OAuth2Client();
 
 class UserController {
   static async register(req, res, next) {
@@ -52,8 +54,8 @@ class UserController {
   static async getUser(req, res, next) {
     const { id } = req.user;
     try {
-      let findUser = await User.findByPk(+id ,{
-        attributes: {exclude: ["password"]}
+      let findUser = await User.findByPk(+id, {
+        attributes: { exclude: ["password"] },
       });
 
       res.status(200).json(findUser);
@@ -82,6 +84,33 @@ class UserController {
       });
     } catch (error) {
       next(error);
+    }
+  }
+
+  static async googleLogin(req, res, next) {
+    const { googleToken } = req.body;
+    try {
+      const ticket = await client.verifyIdToken({
+        idToken: googleToken,
+        audience: process.env.GOOGLE_CLIENT_ID,
+      });
+      const payload = ticket.getPayload();
+      const [user, created] = await User.findOrCreate({
+        where: { email },
+        defaults: {
+          username: payload.name,
+          email: payload.email,
+          picture: payload.picture,
+          provider: "google",
+          password: "google_id",
+        },
+        hooks: false,
+      });
+
+      const token = signToken({ id: user.id }, process.env.JWT_SECRET);
+      res.status(created ? 201 : 200).json({ access_token: token });
+    } catch (error) {
+      next(error)
     }
   }
 }

@@ -188,29 +188,56 @@ describe("GET /games", () => {
   });
 });
 
+describe("POST /games/recommendations", () => {
+  test("success get game recommendations based on genre", async () => {
+    let response = await request(app)
+      .post("/games/recommendations")
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(response.status).toBe(200);
+    expect(response.body).toBeInstanceOf(Object);
+    expect(response.body[0]).toHaveProperty("id", expect.any(Number));
+    expect(response.body[0]).toHaveProperty("genre", expect.any(String));
+    expect(response.body[0]).toHaveProperty("imgUrl", expect.any(String));
+    expect(response.body[0]).toHaveProperty(
+      "metacriticRating",
+      expect.any(Number)
+    );
+  });
+
+  test("should be failed if not logged in", async () => {
+    let response = await request(app).get("/games/200");
+
+    expect(response.status).toBe(401);
+    expect(response.body).toBeInstanceOf(Object);
+    expect(response.body).toHaveProperty("message", "Error authentication");
+  });
+
+  test("should be failed if token is invalid", async () => {
+    let response = await request(app)
+      .get("/games/1")
+      .set("Authorization", "Bearer invalidToken");
+
+    expect(response.status).toBe(401);
+    expect(response.body).toBeInstanceOf(Object);
+    expect(response.body).toHaveProperty("message", "Error authentication");
+  });
+});
+
 describe("GET /games/:id", () => {
   test("success get game based on params id", async () => {
     let response = await request(app)
       .get("/games/1")
       .set("Authorization", `Bearer ${token}`);
-      console.log(typeof response.body.releasedDate, "typoeeeeeeeeeeeee", response.body.releasedDate)
-      console.log(response.body, "<<<<<<<<<<<<<<<<<<<<,");
-      
 
     expect(response.status).toBe(200);
     expect(response.body).toBeInstanceOf(Object);
     expect(response.body).toHaveProperty("id", expect.any(Number));
     expect(response.body).toHaveProperty("title", expect.any(String));
-    expect(response.body).toHaveProperty(
-      "description",
-      expect.any(String)
-    );
+    expect(response.body).toHaveProperty("description", expect.any(String));
     expect(response.body).toHaveProperty("genre", expect.any(String));
     expect(response.body).toHaveProperty("imgUrl", expect.any(String));
-    expect(response.body).toHaveProperty(
-      "releasedDate",
-      expect.any(String)
-    );
+    expect(response.body).toHaveProperty("releasedDate", expect.any(String));
     expect(response.body).toHaveProperty(
       "metacriticRating",
       expect.any(Number)
@@ -220,7 +247,7 @@ describe("GET /games/:id", () => {
   test("should be failed if Game is not in database", async () => {
     let response = await request(app)
       .get("/games/200")
-      .set("Authorization", `Bearer ${token}`);;
+      .set("Authorization", `Bearer ${token}`);
 
     expect(response.status).toBe(404);
     expect(response.body).toBeInstanceOf(Object);

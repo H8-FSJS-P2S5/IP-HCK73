@@ -1,8 +1,9 @@
+const gemini = require("../helpers/geminiAI");
 const { Game, User, Favorite } = require("../models");
 const { Op } = require("sequelize");
 
 class GameController {
-  static async readAllGames(req, res, next) {    
+  static async readAllGames(req, res, next) {
     try {
       const { search, sort, page } = req.query;
       const options = {
@@ -53,7 +54,42 @@ class GameController {
         dataPerPage: limit,
       });
     } catch (error) {
-      next(error); 
+      next(error);
+    }
+  }
+
+  static async askRecommendations(req, res, next) {
+    try {
+      let games = await Game.findAll();
+      games = games.map((el) => {
+        return {
+          id: el.id,
+          genre: el.genre,
+          imgUrl: el.imgUrl,
+          metacriticRating: el.metacriticRating,
+        };
+      });
+
+      const { genre } = req.body;
+      let data = await gemini(genre, JSON.stringify(games));
+      // data.forEach(el => {
+      //   result = await Game.findAll({
+      //   where: {
+      //     id: data.id,
+      //   },
+      // });
+      // });
+      
+
+      // let result = await Game.findAll({
+      //   where: {
+      //     id: data.id,
+      //   },
+      // });
+
+      res.status(200).json(data);
+    } catch (error) {
+      next(error);
     }
   }
 
