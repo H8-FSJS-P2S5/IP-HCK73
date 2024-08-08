@@ -63,9 +63,6 @@ const Homepage = () => {
           genre,
         },
       });
-      console.log(data, "<<<<<< recommendations");
-      console.log();
-      
 
       setRecommendations(data);
       setTotalPage(data.totalPage);
@@ -83,81 +80,6 @@ const Homepage = () => {
 
   return (
     <div>
-      {/* Headers */}
-      {/* <div className="relative h-screen text-white overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            alt="Background Image"
-            className="object-cover object-center w-full h-full brightness-50"
-            src="https://images5.alphacoders.com/131/1315219.jpeg"
-          />
-          <div className="absolute inset-0 bg-black opacity-50" />
-        </div>
-        <div className="relative z-10 flex flex-col justify-center items-center h-full text-center">
-          <h1 className="text-5xl font-bold leading-tight mb-4">
-            Get Recommendations
-          </h1>
-          <p className="text-lg text-gray-300 mb-8">
-            Enter your favorite genre?
-          </p>
-          <a
-            className="bg-yellow-400 text-gray-900 hover:bg-yellow-300 py-2 px-6 rounded-full text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
-            href="#games"
-          >
-            Browse Games
-          </a>
-          <h1 className="text-5xl font-bold leading-tight mb-4">
-            Welcome to Our Awesome Website
-          </h1>
-          <p className="text-lg text-gray-300 mb-8">
-            Discover amazing features and services that await you.
-          </p>
-          <a
-            className="bg-yellow-400 text-gray-900 hover:bg-yellow-300 py-2 px-6 rounded-full text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
-            href="#games"
-          >
-            Browse Games
-          </a>
-        </div>
-      </div> */}
-      {/* Center */}
-      {/* <div class="font-[sans-serif] px-4 py-8 h-screen overflow-hidden py-auto">
-        <div class="text-center max-w-2xl max-md:max-w-md mx-auto">
-          <div>
-            <img
-              src="https://i.ibb.co.com/0ct2XxG/GAMEDOM-Logo-Original-with-Transparent-Background-Cropped.png"
-              alt="GameDom"
-            />
-            <h2 class="text-[#c1c1c1] md:text-5xl text-3xl font-extrabold mt-12 mb-4 md:!leading-[55px]">
-              Get Game Recommendations
-            </h2>
-            <p class="mt-6 text-base text-[#c1c1c1] leading-relaxed text-j">
-              "Discover Your Next Favorite Game! Select your preferred genre to
-              receive personalized game recommendations tailored just for you.
-              Whether you love action-packed adventures, mind-bending puzzles,
-              or immersive role-playing games, we've got something perfect for
-              every gamer. Enter your favorite genre and let us guide you to
-              your next gaming obsession!"
-            </p>
-
-            <div class="bg-white mt-12 flex px-1 py-1.5 rounded-full shadow-md border overflow-hidden">
-              <input
-                type="text"
-                placeholder="Enter a genre"
-                class="w-full text-gray-800 outline-none pl-4 text-sm"
-              />
-              <button
-                type="button"
-                class="bg-blue-600 hover:bg-blue-700 px-5 py-2.5 transition-all text-white tracking-wide text-sm rounded-full"
-              >
-                GET
-              </button>
-            </div>
-          </div>
-        </div>
-      </div> */}
-      {/* LOGO */}
-      {/* Test 2 */}
       <div className="font-sans bg-gray-900 px-6 py-12 overflow-hidden lg:h-screen">
         <div className="max-w-lg max-md:max-w-md mx-auto mb-10">
           <img
@@ -171,13 +93,10 @@ const Homepage = () => {
               <h2 className="text-white lg:text-5xl md:text-4xl text-3xl font-bold mb-4 lg:!leading-[55px]">
                 Game Recommendations, Perfectly Matched for You.
               </h2>
-              <p className="text-white mt-6 text-base leading-relaxed">
-                "Discover Your Next Favorite Game! Select your preferred genre
+              <p className="text-[#c1c1c1] mt-6 text-xl leading-relaxed">
+                Discover Your Next Favorite Game! Select your preferred genre
                 to receive personalized game recommendations tailored just for
-                you. Whether you love action-packed adventures, mind-bending
-                puzzles, or immersive role-playing games, we've got something
-                perfect for every gamer. Enter your favorite genre and let us
-                guide you to your next gaming obsession!"
+                you!
               </p>
               <form onSubmit={GetRecommendations} className="mt-8">
                 <div className="flex border-2 border-blue-500 overflow-hidden max-w-md font-[sans-serif] rounded-lg">

@@ -2,31 +2,19 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import instance from "../helpers/instance";
 import Swal from "sweetalert2";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchGameById } from "../features/games/gameSlice";
 
 const GameDetails = () => {
-  const [game, setGame] = useState([]);
+  const game = useSelector((state => state.game.data))
+  const dispatch = useDispatch();
+  // const [game, setGame] = useState([]);
 
   const { id } = useParams();
 
   useEffect(() => {
-    ReadGameById();
+    dispatch(fetchGameById())
   }, []);
-
-  const ReadGameById = async (e) => {
-    try {
-      let { data } = await instance({
-        url: `/games/${id}`,
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-        },
-      });
-
-      setGame(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <section className="relative ">

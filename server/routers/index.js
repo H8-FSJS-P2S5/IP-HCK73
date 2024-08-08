@@ -8,10 +8,11 @@ const router = express.Router();
 
 router.post("/register", UserController.register);
 router.post("/login", UserController.login);
+router.post("/auth/google", UserController.googleLogin);
+
 router.get("/user", isAuthenticated, UserController.getUser);
 router.put("/editProfile", isAuthenticated, UserController.editProfile);
 
-router.post("/auth/google", UserController.googleLogin);
 
 router.get("/games", isAuthenticated, GameController.readAllGames);
 router.post("/games/recommendations", isAuthenticated, GameController.askRecommendations);

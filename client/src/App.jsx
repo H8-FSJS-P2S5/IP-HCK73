@@ -9,6 +9,10 @@ import Profile from "./pages/Profile";
 import Favorites from "./pages/Favorites";
 // import './App.css'
 
+import { Provider } from "react-redux";
+import { store } from "./store";
+import { RouterProvider } from "react-router-dom";
+
 const router = createBrowserRouter([
   {
     element: <MainLayout />,
@@ -64,7 +68,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
+  );
 }
 
 export default App;
