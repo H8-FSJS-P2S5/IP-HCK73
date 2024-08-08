@@ -4,35 +4,6 @@ import instance from "../helpers/instance";
 const GameCard = (props) => {
   let { game } = props;
 
-  //   const HandleAddFavorites = async (e) => {
-  //     e.preventDefault();
-  //     try {
-  //       let { data } = await instance({
-  //         url: `/favorites`,
-  //         method: "POST",
-  //         headers: {
-  //           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-  //         },
-  //         data: {
-  //           UserId,
-  //           GameId,
-  //         },
-  //       });
-  //     } catch (error) {
-  //       if (error.response) {
-  //         Swal.fire({
-  //           icon: "error",
-  //           title: "Oops...",
-  //           text: error.response.data.message,
-  //           confirmButtonText: "OK",
-  //           confirmButtonColor: "#2563eb",
-  //           background: "#151515",
-  //           color: "white",
-  //         });
-  //       }
-  //     }
-  //   };
-
   return (
     <div className="overflow-hidden">
       <div className="flex flex-col h-full">

@@ -65,6 +65,7 @@ class GameController {
       games = games.map((el) => {
         return {
           id: el.id,
+          title: el.title,
           genre: el.genre,
           imgUrl: el.imgUrl,
           metacriticRating: el.metacriticRating,
@@ -72,6 +73,7 @@ class GameController {
       });
 
       let data = await gemini(genre, JSON.stringify(games));
+      console.log(data, "<<<<<< data");      
 
       res.status(200).json(data);
     } catch (error) {

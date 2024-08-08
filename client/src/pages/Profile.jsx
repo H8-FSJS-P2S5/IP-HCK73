@@ -44,7 +44,6 @@ const Profile = () => {
         data: {
           username,
           email,
-          password,
         },
       });
       navigate("/");
@@ -196,7 +195,7 @@ const Profile = () => {
     <div className="font-[sans-serif] bg-[#121212] md:h-screen">
       <div className="grid md:grid-cols-2 items-center gap-8 h-full">
         <div className="flex items-center p-6 h-full w-full">
-          <form className="max-w-lg w-full mx-auto">
+          <form onSubmit={HandleEditProfile} className="max-w-lg w-full mx-auto">
             <div className="mb-12 text-center">
               <h3 className="text-white md:text-3xl text-2xl font-extrabold max-md:text-center">
                 User Profile

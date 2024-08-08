@@ -9,10 +9,11 @@ const gemini = async (genre, games) => {
     generationConfig: { responseMimeType: "application/json" },
   });
 
-  const prompt = `please give me game top 3 recommendations based on genre ${genre} and metacritic rating, based on property genre of data from ${games}. The recommendations can't be get from internet or other sources, only get the recommendations based on the data provided. Response must be a format JSON like this:
+  const prompt = `please give me game top 5 recommendations based on genre ${genre} and metacritic rating, based on property genre of data from ${games}. The recommendations can't be get from internet or other sources, only get the recommendations based on the data provided. Response must be a format JSON like this:
   [
     {
       "id": ...,
+      "Title":...,
       "genre": el.genre,
       "imgUrl": el.imgUrl,
       "metacriticRating": el.metacriticRating,

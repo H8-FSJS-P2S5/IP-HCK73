@@ -172,9 +172,9 @@ const Register = () => {
                 </Link>
               </p>
             </div>
-            <div className="my-4 py-3 flex items-center text-sm text-gray-400 before:flex-1 before:border-t before:border-gray-200 before:me-6 after:flex-1 after:border-t after:border-gray-200 after:ms-6 ">
-              OR
-            </div>
+            {/* <div className="my-4 py-3 flex items-center text-sm text-gray-400 before:flex-1 before:border-t before:border-gray-200 before:me-6 after:flex-1 after:border-t after:border-gray-200 after:ms-6 ">
+              Or
+            </div> */}
 
             {/* Sign up w/ Google */}
             {/* <button
@@ -207,7 +207,7 @@ const Register = () => {
               </svg>
               Continue with Google
             </button> */}
-            <GoogleLogin />
+            {/* <GoogleLogin /> */}
           </form>
         </div>
       </div>

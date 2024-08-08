@@ -2,63 +2,63 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import instance from "../helpers/instance";
 const FavoriteCard = (props) => {
-  let { favorite } = props;
+  let { favorite, HandleDeleteFavorite } = props;
 
-  const HandleDeleteFavorite = async (id) => {
-    try {
-      Swal.fire({
-        title: `Delete ${favorite.Game.title}?`,
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#b91c1c",
-        cancelButtonColor: "#075985",
-        confirmButtonText: "Delete",
-        background: "#151515",
-        color: "white",
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          try {
-            let { data } = await instance({
-              url: `/favorites/${id}`,
-              method: "DELETE",
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-              },
-            });
-            Swal.fire({
-              title: "Deleted!",
-              text: data.message,
-              icon: "success",
-            });
-          } catch (error) {
-            if (error.response) {
-              Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: error.response.data.message,
-                confirmButtonText: "OK",
-                confirmButtonColor: "#2563eb",
-                background: "#151515",
-                color: "white",
-              });
-            }
-          }
-        }
-      });
-    } catch (error) {
-      if (error.response) {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: error.response.data.message,
-          confirmButtonText: "OK",
-          confirmButtonColor: "#2563eb",
-          background: "#151515",
-          color: "white",
-        });
-      }
-    }
-  };
+  // const HandleDeleteFavorite = async (id) => {
+  //   try {
+  //     Swal.fire({
+  //       title: `Delete ${favorite.Game.title}?`,
+  //       icon: "warning",
+  //       showCancelButton: true,
+  //       confirmButtonColor: "#b91c1c",
+  //       cancelButtonColor: "#075985",
+  //       confirmButtonText: "Delete",
+  //       background: "#151515",
+  //       color: "white",
+  //     }).then(async (result) => {
+  //       if (result.isConfirmed) {
+  //         try {
+  //           let { data } = await instance({
+  //             url: `/favorites/${id}`,
+  //             method: "DELETE",
+  //             headers: {
+  //               Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+  //             },
+  //           });
+  //           Swal.fire({
+  //             title: "Deleted!",
+  //             text: data.message,
+  //             icon: "success",
+  //           });
+  //         } catch (error) {
+  //           if (error.response) {
+  //             Swal.fire({
+  //               icon: "error",
+  //               title: "Oops...",
+  //               text: error.response.data.message,
+  //               confirmButtonText: "OK",
+  //               confirmButtonColor: "#2563eb",
+  //               background: "#151515",
+  //               color: "white",
+  //             });
+  //           }
+  //         }
+  //       }
+  //     });
+  //   } catch (error) {
+  //     if (error.response) {
+  //       Swal.fire({
+  //         icon: "error",
+  //         title: "Oops...",
+  //         text: error.response.data.message,
+  //         confirmButtonText: "OK",
+  //         confirmButtonColor: "#2563eb",
+  //         background: "#151515",
+  //         color: "white",
+  //       });
+  //     }
+  //   }
+  // };
 
   return (
     <div className="overflow-hidden">

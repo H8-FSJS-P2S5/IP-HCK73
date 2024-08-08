@@ -57,7 +57,8 @@ const Login = () => {
               <h1 className="block text-2xl font-bold text-white">Sign in</h1>
               <p className="mt-2 text-sm text-[#c1c1c1]">
                 Don't have an account yet?<span> </span>
-                <Link to={"/register"}
+                <Link
+                  to={"/register"}
                   className="text-white decoration-1 underline hover:no-underline focus:outline-none focus:underline font-medium"
                 >
                   Sign up here
@@ -66,7 +67,6 @@ const Login = () => {
             </div>
 
             <div className="mt-5">
-
               {/* <!-- Form --> */}
               <form onSubmit={handleLogin}>
                 <div className="grid gap-y-4">
@@ -181,7 +181,9 @@ const Login = () => {
                 </svg>
                 Google
               </button> */}
-              <GoogleLogin />
+              <div className="flex justify-center">
+                <GoogleLogin />
+              </div>
             </div>
           </div>
         </div>
