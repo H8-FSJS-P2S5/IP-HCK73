@@ -1,6 +1,33 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import axios from "axios"
+import { useState } from "react"
+import Swal from "sweetalert2"
 
 const LoginPage = () => {
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const navigate = useNavigate()
+
+    const handleLogin = async (e) => {
+        e.preventDefault()
+        try {
+            let {data} = await axios.post('http://localhost:3000/login', {email, password})
+            localStorage.setItem('access_token', data.access_token)
+            navigate('/')
+        } catch (error) {
+            // console.log(error.response.data.message);
+            Swal.fire({
+                title: 'Oh No!',
+                text:  error.response.data.message,
+                icon: 'error'
+              })
+        }
+    }
+
+
+
+
+
     return (        
         <div className="bg-white font-outfit">
             <div className="flex justify-center h-screen">
@@ -50,15 +77,14 @@ const LoginPage = () => {
                             </p>
                         </div>
                         <div className="mt-8">
-                            <form>
+                            <form onSubmit={handleLogin}>
                                 <div>
                                     <label
                                         htmlFor="email"
-                                        className="block mb-2 text-sm text-gray-600 "
-                                    >
+                                        className="block mb-2 text-sm text-gray-600">
                                         Email Address
                                     </label>
-                                    <input
+                                    <input value={email} onChange={(e) => setEmail(e.target.value)}
                                         type="email"
                                         name="email"
                                         id="email"
@@ -81,7 +107,7 @@ const LoginPage = () => {
                                             Forgot password?
                                         </a>
                                     </div>
-                                    <input
+                                    <input value={password} onChange={(e) => setPassword(e.target.value)}
                                         type="password"
                                         name="password"
                                         id="password"
@@ -90,7 +116,7 @@ const LoginPage = () => {
                                     />
                                 </div>
                                 <div className="mt-6">
-                                    <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+                                    <button type="submit" className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50">
                                         Sign in
                                     </button>
                                 </div>

@@ -1,5 +1,6 @@
 import {
   createBrowserRouter,
+  redirect,
   RouterProvider,
 } from "react-router-dom";
 import "./index.css";
@@ -13,14 +14,32 @@ import AirportList from "./pages/AirportList";
 const router = createBrowserRouter([
   {
     path: '/login',
-    element: <LoginPage />
+    element: <LoginPage />,
+    loader: () => {
+      if (localStorage.getItem('access_token')) {
+        return redirect('/')
+      }
+      return null
+    }
   },
   {
     path: '/register',
-    element: <RegisterPage />
+    element: <RegisterPage />,
+    loader: () => {
+      if (localStorage.getItem('access_token')) {
+        return redirect('/')
+      }
+      return null
+    }
   },
   {
     element: <MainLayout />,
+    loader: () => {
+      if (!localStorage.getItem('access_token')) {
+        return redirect('/ogin')
+      }
+      return null
+    },
     children: [
       {
         path: "/",

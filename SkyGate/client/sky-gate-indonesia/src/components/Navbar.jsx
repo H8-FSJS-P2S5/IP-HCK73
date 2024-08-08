@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom"
-
+import { Link, useNavigate } from "react-router-dom"
+import Swal from "sweetalert2"
 const Navbar = () => {
+    const navigate = useNavigate()
     return (
         <>
             {/* ========== HEADER ========== */}
@@ -175,9 +176,16 @@ const Navbar = () => {
                                 </a>
                                 {/* Button Group */}
                                 <div className="relative flex flex-wrap items-center gap-x-1.5 md:ps-2.5  md:ms-1.5 before:block before:absolute before:top-1/2 before:-start-px before:w-px before:h-4 before:bg-gray-300 before:-translate-y-1/2">
-                                    <a
+                                    <button onClick={() => {
+                                        localStorage.clear()
+                                        navigate('/login')
+                                        Swal.fire({
+                                            title: 'See Ya! 👋',
+                                            text: 'You have been signed out',
+                                            icon: 'success'
+                                        })
+                                    }}
                                         className="p-2 w-full flex items-center text-sm text-white hover:text-cyan-200 focus:outline-none focus:text-cyan-200 hover:underline"
-                                        href="#"
                                     >
                                         <svg
                                             className="shrink-0 size-4 me-3 md:me-2"
@@ -195,7 +203,7 @@ const Navbar = () => {
                                             <circle cx={12} cy={7} r={4} />
                                         </svg>
                                         Sign Out
-                                    </a>
+                                    </button>
                                 </div>
                                 {/* End Button Group */}
                             </div>

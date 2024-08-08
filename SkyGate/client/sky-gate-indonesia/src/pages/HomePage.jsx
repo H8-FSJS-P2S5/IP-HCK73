@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 const HomePage = () => {
     return (
         <section className="bg-white font-outfit">
@@ -66,6 +68,18 @@ const HomePage = () => {
                                     Discover local insights through our AI assistance
                                 </span>
                             </p>
+                            <div>
+                                <Link to={'/airports'}
+                                    className="px-5 py-2.5 relative rounded group text-white font-medium inline-block">
+                                    <span className="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-purple-600 to-blue-500" />
+                                    <span className="h-full w-full inset-0 absolute mt-0.5 ml-0.5 bg-gradient-to-br filter group-active:opacity-0 rounded opacity-50 from-purple-600 to-blue-500" />
+                                    <span className="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-purple-600 to-blue-500" />
+                                    <span className="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-purple-600 from-blue-500" />
+                                    <span className="relative">
+                                        Discover Now!
+                                    </span>
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -78,6 +92,7 @@ const HomePage = () => {
                 </div>
             </div>
 
+
             {/* bottom */}
             <div className="container flex flex-col px-6 py-10 mx-auto space-y-6 lg:h-[32rem] lg:py-16 lg:flex-row lg:items-center">
                 <div className="flex items-center justify-center w-full h-96 lg:w-1/2">
@@ -88,7 +103,7 @@ const HomePage = () => {
                     />
                 </div>
 
-                <div className="w-full lg:w-1/2 ml-24">
+                <div className="w-full lg:w-1/2 lg:ml-24">
                     <div className="lg:max-w-lg">
                         <h1 className="text-3xl font-bold tracking-normal text-gray-800 lg:text-4xl">
                             Nationwide Airport & Travel Data Right At Your Fingertips!
