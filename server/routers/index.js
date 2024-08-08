@@ -5,15 +5,16 @@ const RecipeController = require("../controller/recipeController");
 const {User} =require("../models");
 const { verifyToken } = require("../helper/jwt");
 const errorHandeler = require("../middlewear/errorHendeller")
-const {core} = require("core-js")
+const cors = require("cors")
 
-// router.use(core)
+router.use(cors())
 
 router.post("/auth/google",UserController.googleAouth)
 
 router.post("/register", UserController.registerUser);
 
 router.post("/login",UserController.loginUser)
+
 
 //----------------
 
