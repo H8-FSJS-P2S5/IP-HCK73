@@ -134,6 +134,7 @@ class AirportController {
     static async chatbot(req, res, next) {
         const { airportCode } = req.params
         const { question } = req.body
+        
         try {
             const airport = await Airport.findOne({
                 where: { airportCode }
@@ -141,42 +142,44 @@ class AirportController {
             if (!airport) {
                 throw { name: 'airport-not-found' }
             }
-            const prompt = `${question} near ${airport.name}. Please make the output consistent as json like this:   
-            {
-                "airport": "<airport name>",
-                "location": "<airport location>",
-                "activities": [
-                    {
-                    "name": "<activities name>",
-                    "description": "<activities description>",
-                    "distanceFromAirport": "<activities distance from airport>",
-                    "category": "<activities category>",
-                    "imageUrl": "<activities image url (please provide real picture)>"
-                    }
-                ],
-                "sightseeing": [
-                    {
-                    "name": "<sightseeing name>",
-                    "description": "<sightseeing description>",
-                    "distanceFromAirport": "<sightseeing distance from airport>",
-                    "category": "<sightseeing category>",
-                    "imageUrl": "<sightseeing image url (please provide real picture)>"
-                    }
-                ],
-                "accommodations": [
-                    {
-                    "name": "<accommodations name>",
-                    "description": "<accommodations description>",
-                    "distanceFromAirport": "<accommodations distance from airport>",
-                    "category": "<accommodations category>",
-                    "imageUrl": "<accommodations image url (please provide real picture)>"
-                    }
-                ]
-            }`
-        
-        const openAiResponse = await openAI(prompt)
-        const jsonResponse = JSON.parse(openAiResponse)
-        res.status(200).json({ response: jsonResponse })
+            if (question) {
+                const prompt = `${question} near ${airport.name}. Please make the output consistent as json like this:   
+                {
+                    "activities":
+                        {
+                        "airport": "<airport name>",
+                        "location": "<airport location>",
+                        "name": "<activities name>",
+                        "description": "<activities description>",
+                        "distanceFromAirport": "<activities distance from airport>",
+                        "category": "<activities category>",
+                        "imageUrl": "<activities image url (please provide real picture)>"
+                        }
+                    "sightseeing":
+                        {
+                        "airport": "<airport name>",
+                        "location": "<airport location>",
+                        "name": "<sightseeing name>",
+                        "description": "<sightseeing description>",
+                        "distanceFromAirport": "<sightseeing distance from airport>",
+                        "category": "<sightseeing category>",
+                        "imageUrl": "<sightseeing image url (please provide real picture)>"
+                        }
+                    "accommodations":
+                        {
+                        "airport": "<airport name>",
+                        "location": "<airport location>",
+                        "name": "<accommodations name>",
+                        "description": "<accommodations description>",
+                        "distanceFromAirport": "<accommodations distance from airport>",
+                        "category": "<accommodations category>",
+                        "imageUrl": "<accommodations image url (please provide real picture)>"
+                        }
+                }`  
+                const openAiResponse = await openAI(prompt)
+                const jsonResponse = JSON.parse(openAiResponse)
+                res.status(200).json({ response: jsonResponse })
+            }
         } catch (error) {
             console.log(error);
             next(error)

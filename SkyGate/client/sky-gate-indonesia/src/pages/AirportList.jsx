@@ -19,7 +19,6 @@ const AirportList = () => {
                     'Authorization': `Bearer ${localStorage.getItem('access_token')}`
                 }
             })
-            console.log(data);
             setAirport(data.data)
             setTotalPage(data.totalPage)
         } catch (error) {
@@ -42,7 +41,7 @@ const AirportList = () => {
     return (
         <>
             <div className="mt-7">
-                <SearchBar />
+                <SearchBar readAirports={readAirports} search={search} setSearch={setSearch} />
             </div>
             <div className="grid my-10 mx-auto w-full justify-center px-3 py-3">
                 {

@@ -13,6 +13,7 @@ import AirportList from "./pages/AirportList";
 import AirportDetail from "./pages/AirportDetail";
 import { useEffect } from "react";
 import axios from "axios";
+import AddReview from "./pages/AddReview";
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
       {
         path: "/airports/:airportCode",
         element: <AirportDetail />
+      },
+      {
+        path: "/airports/:airportCode/reviews",
+        element: <AddReview />
       },
       {
         path: '*',
