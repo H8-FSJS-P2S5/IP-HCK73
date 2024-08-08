@@ -7,7 +7,7 @@ const { verifyToken } = require("../helper/jwt");
 const errorHandeler = require("../middlewear/errorHendeller")
 const {core} = require("core-js")
 
-router.use(core)
+// router.use(core)
 
 router.post("/auth/google",UserController.googleAouth)
 

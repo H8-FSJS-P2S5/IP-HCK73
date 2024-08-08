@@ -5,6 +5,11 @@ const port = 3000
 const router = require("./routers/index")
 
 
+if(process.env.NODE_ENV !== "production"){
+    require("dotenv").config()
+  }
+
+
 app.use(express.urlencoded({extended : true}))
 app.use(express.json())
 
