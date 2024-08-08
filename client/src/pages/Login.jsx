@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import instance from "../helpers/instance";
+import GoogleLogin from "../components/GoogleLogin";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -150,7 +151,7 @@ const Login = () => {
               </div>
 
               {/* Sign in w/ Google */}
-              <button
+              {/* <button
                 type="button"
                 className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-base font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-200 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
               >
@@ -179,7 +180,8 @@ const Login = () => {
                   />
                 </svg>
                 Google
-              </button>
+              </button> */}
+              <GoogleLogin />
             </div>
           </div>
         </div>

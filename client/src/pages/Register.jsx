@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import GoogleLogin from "../components/GoogleLogin";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -176,7 +177,7 @@ const Register = () => {
             </div>
 
             {/* Sign up w/ Google */}
-            <button
+            {/* <button
               type="button"
               className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-base font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-200 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
             >
@@ -205,7 +206,8 @@ const Register = () => {
                 />
               </svg>
               Continue with Google
-            </button>
+            </button> */}
+            <GoogleLogin />
           </form>
         </div>
       </div>
