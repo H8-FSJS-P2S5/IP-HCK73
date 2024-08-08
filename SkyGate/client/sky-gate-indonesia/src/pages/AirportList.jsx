@@ -1,10 +1,56 @@
+import { useEffect, useState } from "react"
 import MainCard from "../components/MainCard"
+import ApiRequest from "../helpers/ApiRequest"
+import Pagination from "../components/Pagination"
 
 const AirportList = () => {
-    return(
-        <div className="flex my-10 mx-5 px-3 py-3 justify-center">
-            <MainCard />
-        </div>
+    const [airport, setAirport] = useState([])
+    const [currentPage, setCurrentPage] = useState(1)
+    const [totalPage, setTotalPage] = useState()
+    const [search, setSearch] = useState('')
+
+    const readAirports = async () => {
+        try {
+            let { data } = await ApiRequest({
+                url: `/airports?page[number]=${currentPage}&page[size]=10&search=${search}`,
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                }
+            })
+            console.log(data);
+            setAirport(data.data)
+            setTotalPage(data.totalPage)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const nextPage = () => {
+        setCurrentPage(currentPage + 1)
+    }
+
+    const prevPage = () => {
+        setCurrentPage(currentPage - 1)
+    }
+
+    useEffect(() => {
+        readAirports()
+    }, [currentPage, search])
+
+    return (
+        <>
+            <div className="my-10 mx-5 px-3 py-3 lg:ml-80">
+                {
+                    airport.map((item) => (
+                        <MainCard key={item.id} item={item} />
+                    ))
+                }
+            </div>
+            <div>
+                <Pagination currentPage={currentPage} nextPage={nextPage} prevPage={prevPage} totalPage={totalPage} />
+            </div>
+        </>
     )
 }
 

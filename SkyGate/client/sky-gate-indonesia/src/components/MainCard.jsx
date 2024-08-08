@@ -1,57 +1,36 @@
-const MainCard = () => {
+const MainCard = ({ item }) => {
     return (
-        <div className="max-w-2xl px-8 py-4 bg-white rounded-lg shadow-md shadow-blue-100 font-outfit">
-            <div className="flex items-center justify-between">
-                <span className="text-sm font-light text-gray-600">
-                    Mar 10, 2019
-                </span>
-                <a
-                    className="px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-300 transform bg-gray-600 rounded cursor-pointer hover:bg-gray-500"
-                    tabIndex={0}
-                    role="button"
-                >
-                    Design
-                </a>
-            </div>
+        <div className="mb-5 flex justify-between max-w-2xl px-8 py-4 bg-white rounded-lg shadow-xl shadow-blue-100 font-outfit">
             <div className="mt-2">
-                <a
-                    href="#"
-                    className="text-xl font-bold text-gray-700 hover:text-gray-600 hover:underline"
-                    tabIndex={0}
+                <p
+                    className="text-xl font-bold text-gray-700 hover:text-gray-600"
                     role="link"
                 >
-                    Accessibility tools for designers and developers
-                </a>
-                <p className="mt-2 text-gray-600">
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora expedita
-                    dicta totam aspernatur doloremque. Excepturi iste iusto eos enim
-                    reprehenderit nisi, accusamus delectus nihil quis facere in modi ratione
-                    libero!
+                    {item.name}
                 </p>
-            </div>
-            <div className="flex items-center justify-between mt-4">
-                <a
-                    href="#"
-                    className="text-blue-600 hover:underline"
-                    tabIndex={0}
-                    role="link"
-                >
-                    Read more
-                </a>
-                <div className="flex items-center">
-                    <img
-                        className="hidden object-cover w-10 h-10 mx-4 rounded-full sm:block"
-                        src="https://images.unsplash.com/photo-1502980426475-b83966705988?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=40&q=80"
-                        alt="avatar"
-                    />
-                    <a
-                        className="font-bold text-gray-700 cursor-pointer"
-                        tabIndex={0}
-                        role="link"
-                    >
-                        Khatab wedaa
-                    </a>
+                <div className="flex items-center justify-start my-2">
+                    <p
+                        className="px-3 py-1 text-sm mr-3 font-bold text-white transition-colors duration-300 transform bg-blue-500 rounded">
+                        IATA: {item.iataCode ? item.iataCode : 'N/A'}
+                    </p>
+                    <p
+                        className="px-3 py-1 text-sm font-bold text-white transition-colors duration-300 transform bg-blue-500 rounded">
+                        ICAO: {item.icaoCode ? item.icaoCode : 'N/A'}
+                    </p>
                 </div>
+            </div>
+            <div className="flex items-center">
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="size-6 fill-blue-500 drop-shadow-sm">
+                        <path d="M11.625 16.5a1.875 1.875 0 1 0 0-3.75 1.875 1.875 0 0 0 0 3.75Z" />
+                        <path fill-rule="evenodd" d="M5.625 1.5H9a3.75 3.75 0 0 1 3.75 3.75v1.875c0 1.036.84 1.875 1.875 1.875H16.5a3.75 3.75 0 0 1 3.75 3.75v7.875c0 1.035-.84 1.875-1.875 1.875H5.625a1.875 1.875 0 0 1-1.875-1.875V3.375c0-1.036.84-1.875 1.875-1.875Zm6 16.5c.66 0 1.277-.19 1.797-.518l1.048 1.048a.75.75 0 0 0 1.06-1.06l-1.047-1.048A3.375 3.375 0 1 0 11.625 18Z" clip-rule="evenodd" />
+                        <path d="M14.25 5.25a5.23 5.23 0 0 0-1.279-3.434 9.768 9.768 0 0 1 6.963 6.963A5.23 5.23 0 0 0 16.5 7.5h-1.875a.375.375 0 0 1-.375-.375V5.25Z" />
+                        <title>
+                            See Detail
+                        </title>
+                    </svg>
+
+                </button>
             </div>
         </div>
 
