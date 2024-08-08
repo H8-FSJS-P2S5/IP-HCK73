@@ -2,6 +2,7 @@ import { Link, useNavigate, useParams } from "react-router-dom"
 import AirportDetail from "./AirportDetail"
 import { useState } from "react"
 import ApiRequest from "../helpers/ApiRequest"
+import Swal from 'sweetalert2'
 
 const AddReview = () => {
     const { airportCode } = useParams()
@@ -13,7 +14,7 @@ const AddReview = () => {
         e.preventDefault()
         const reqBody = { rate, comment }
         try {
-            let { data } = await ApiRequest({
+            await ApiRequest({
                 url: `/airports/${airportCode}/reviews`,
                 method: 'POST',
                 headers: {
@@ -22,8 +23,18 @@ const AddReview = () => {
                 data: reqBody
             })
             navigate(`/airports/${airportCode}`)
+            Swal.fire({
+                title: 'Oh No!',
+                text: error.response.data.message,
+                icon: 'error'
+            })
         } catch (error) {
             console.log(error);
+            Swal.fire({
+                title: 'Oh No!',
+                text: error.response.data.message,
+                icon: 'error'
+            })
         }
     }
 
@@ -34,7 +45,7 @@ const AddReview = () => {
                 <div className="w-full max-w-lg bg-white shadow-lg rounded-lg p-8 relative">
                     <div className="flex items-center">
                         <h3 className="text-blue-600 text-xl font-bold flex-1">
-                            Add New Product
+                            Add A Review
                         </h3>
                         <Link to={`/airports/${airportCode}`}>
                             <svg
@@ -56,21 +67,21 @@ const AddReview = () => {
                     <form onSubmit={addReview} className="space-y-4 mt-8">
                         <div>
                             <labe className="text-gray-800 text-sm mb-2 block">
-                                Name of the product
+                                Rate
                             </labe>
                             <input value={rate} onChange={(e) => setRate(e.target.value)}
                                 className="px-4 py-3 bg-gray-100 w-full text-gray-800 text-sm border-none focus:outline-blue-600 focus:bg-transparent rounded-lg"
-                                placeholder="Enter product name"
+                                placeholder="from 1 to 10"
                                 type="number"
                             />
                         </div>
                         <div>
                             <label className="text-gray-800 text-sm mb-2 block">
-                                Descriptions
+                                Review
                             </label>
                             <textarea value={comment} onChange={(e) => setComment(e.target.value)}
                                 className="px-4 py-3 bg-gray-100 w-full text-gray-800 text-sm border-none focus:outline-blue-600 focus:bg-transparent rounded-lg"
-                                placeholder="Write about the product"
+                                placeholder="Tell us about the airport!"
                                 rows="3"
                             />
                         </div>
