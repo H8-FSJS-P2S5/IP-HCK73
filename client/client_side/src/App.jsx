@@ -75,6 +75,9 @@ const router = createBrowserRouter([
         element: <AddRecipe />,
         path: "/add-edit/:id",
       },
+      {
+        element
+      }
     ]
   },
 
