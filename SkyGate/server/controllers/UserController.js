@@ -54,7 +54,7 @@ class UserController {
         idToken: googleToken,
         audience: process.env.GOOGLE_CLIENT_ID,
       });
-      const payload = ticket.getPayload();
+      const payload = ticket.getPayload();  
       const [user, created] = await User.findOrCreate({
         where: { email: payload.email },
         defaults: {
@@ -70,7 +70,6 @@ class UserController {
       res.status(created ? 201 : 200).json({ access_token: token });
     } catch (error) {
       console.log(error);
-      
       next(error)
     }
   }

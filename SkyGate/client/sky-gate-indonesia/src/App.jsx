@@ -10,6 +10,9 @@ import NotFound from "./pages/NotFound";
 import HomePage from "./pages/HomePage";
 import MainLayout from "./pages/MainLayout";
 import AirportList from "./pages/AirportList";
+import AirportDetail from "./pages/AirportDetail";
+import { useEffect } from "react";
+import axios from "axios";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: "/airports",
         element: <AirportList />
+      },
+      {
+        path: "/airports/:airportCode",
+        element: <AirportDetail />
       },
       {
         path: '*',

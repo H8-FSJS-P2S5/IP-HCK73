@@ -24,7 +24,7 @@ const Footer = () => {
                     Sky Gate Indonesia
                 </p>
                 </div>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 font-outfit">
                     © Copyright 2024. All Rights Reserved | Data sourced from <a href="https://www.openaip.net" target="_blank" className="hover:underline hover:text-blue-500">OpenAIP</a>
                 </p>
                 <div className="flex -mx-2">

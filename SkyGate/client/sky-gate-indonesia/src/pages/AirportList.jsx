@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import MainCard from "../components/MainCard"
 import ApiRequest from "../helpers/ApiRequest"
 import Pagination from "../components/Pagination"
+import SearchBar from "../components/SearchBar"
 
 const AirportList = () => {
     const [airport, setAirport] = useState([])
@@ -40,7 +41,10 @@ const AirportList = () => {
 
     return (
         <>
-            <div className="my-10 mx-5 px-3 py-3 lg:ml-80">
+            <div className="mt-7">
+                <SearchBar />
+            </div>
+            <div className="grid my-10 mx-auto w-full justify-center px-3 py-3">
                 {
                     airport.map((item) => (
                         <MainCard key={item.id} item={item} />

@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom"
+
 const MainCard = ({ item }) => {
     return (
-        <div className="mb-5 flex justify-between max-w-2xl px-8 py-4 bg-white rounded-lg shadow-xl shadow-blue-100 font-outfit">
+        <div className="mb-5 flex border border-gray-100 justify-between lg:w-[55vw] px-8 py-4 bg-white rounded-lg shadow-lg shadow-gray-100 font-outfit">
             <div className="mt-2">
                 <p
                     className="text-xl font-bold text-gray-700 hover:text-gray-600"
@@ -20,7 +22,7 @@ const MainCard = ({ item }) => {
                 </div>
             </div>
             <div className="flex items-center">
-                <button>
+                <Link to={`/airports/${item.airportCode}`} type="button">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="size-6 fill-blue-500 drop-shadow-sm">
                         <path d="M11.625 16.5a1.875 1.875 0 1 0 0-3.75 1.875 1.875 0 0 0 0 3.75Z" />
                         <path fill-rule="evenodd" d="M5.625 1.5H9a3.75 3.75 0 0 1 3.75 3.75v1.875c0 1.036.84 1.875 1.875 1.875H16.5a3.75 3.75 0 0 1 3.75 3.75v7.875c0 1.035-.84 1.875-1.875 1.875H5.625a1.875 1.875 0 0 1-1.875-1.875V3.375c0-1.036.84-1.875 1.875-1.875Zm6 16.5c.66 0 1.277-.19 1.797-.518l1.048 1.048a.75.75 0 0 0 1.06-1.06l-1.047-1.048A3.375 3.375 0 1 0 11.625 18Z" clip-rule="evenodd" />
@@ -30,7 +32,7 @@ const MainCard = ({ item }) => {
                         </title>
                     </svg>
 
-                </button>
+                </Link>
             </div>
         </div>
 
