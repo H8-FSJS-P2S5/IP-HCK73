@@ -38,8 +38,8 @@ const Register = () => {
         <div className="max-md:order-1 bg-black h-full">
           <img
             alt="login-image"
-            className="lg:max-w-[90%] h-full object-contain hidden lg:block mx-auto"
-            src="https://images.unsplash.com/photo-1581351123004-757df051db8e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHBjJTIwZ2FtZXN8ZW58MHwxfDB8fHww"
+            className="h-full object-cover overflow-hidden hidden lg:block mx-auto"
+            src="https://www.teahub.io/photos/full/185-1857230_witcher-3-wallpaper-art.jpg"
           />
         </div>
         <div className="flex items-center p-6 h-full w-full">
