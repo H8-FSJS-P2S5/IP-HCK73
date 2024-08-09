@@ -17,15 +17,16 @@ export default function AllRecipe() {
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
       });
-
+      console.log(data);
+      
       setAllRecipes(data);
     } catch (error) {
-        Swal.fire({
-            title: 'Error!',
-            text: error.response.data.message,
-            icon: 'error',
-            confirmButtonText: 'OK'
-          })
+        // Swal.fire({
+        //     title: 'Error!',
+        //     text: error.response.data.message,
+        //     icon: 'error',
+        //     confirmButtonText: 'OK'
+        //   })
     }
   };
 

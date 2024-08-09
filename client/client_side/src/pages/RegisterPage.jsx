@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2'
 import GoogleLogin from "../components/GoogleLogin";
 import RequestRecipe from "../../helper/RequestRecipe";
 
 
 export default function RegisterPage() {
+
+    const navigate = useNavigate()
 
     const [name , setName] = useState("")
     const [email , setEmail] = useState("")
@@ -15,13 +17,17 @@ export default function RegisterPage() {
         try {
             let {data} = await RequestRecipe({
                 url : "/register",
-                method : "POST",
+                method :"POST",
                 data : {
-                    name,
-                    email ,
-                    password
+                    name :name,
+                    email : email,
+                    password :password
                 }
             })
+
+            console.log(data);
+            
+            navigate("/")
         } catch (error) {
             Swal.fire({
                 title: 'Error!',
