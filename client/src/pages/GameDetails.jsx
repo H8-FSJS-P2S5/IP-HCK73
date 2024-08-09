@@ -6,14 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchGameById } from "../features/games/gameSlice";
 
 const GameDetails = () => {
-  const game = useSelector((state => state.game.data))
+  const game = useSelector((state => state.games.detail))
   const dispatch = useDispatch();
-  // const [game, setGame] = useState([]);
 
   const { id } = useParams();
 
   useEffect(() => {
-    dispatch(fetchGameById())
+    dispatch(fetchGameById(id))
   }, []);
 
   return (

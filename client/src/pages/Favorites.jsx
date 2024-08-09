@@ -2,8 +2,17 @@ import { useEffect, useState } from "react";
 import instance from "../helpers/instance";
 import FavoriteCard from "../components/FavoriteCard";
 import Swal from "sweetalert2";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchFavorites } from "../features/favorites/favoriteSlice";
 
 const Favorites = () => {
+  // const favorites = useSelector((state) => state.favorites);
+  // const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(fetchFavorites());
+  // }, []);
+  
     const [favorites, setFavorites] = useState([]);
 
     useEffect(() => {

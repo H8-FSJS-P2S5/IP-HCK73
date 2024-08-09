@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import GoogleLogin from "../components/GoogleLogin";
 
 const Register = () => {
   const [username, setUsername] = useState("");

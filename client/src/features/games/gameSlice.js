@@ -23,16 +23,32 @@ export const gameSlice = createSlice({
       state.detail = action.payload;
     },
     setTotalPage: (state, action) => {
-      state.detail = action.payload;
+      state.list.totalPages = action.payload.totalPages;
+    },
+    setCurrentPage: (state, action) => {
+      state.list.currentPage = action.payload.currentPage;
+    },
+    setSearch: (state, action) => {
+      state.list.data = action.payload.data;
+    },
+    setSort: (state, action) => {
+      state.list.data = action.payload.data;
     },
   },
 });
 
-export const { setGames, setGame } = gameSlice.actions;
+export const {
+  setGames,
+  setGame,
+  setTotalPage,
+  setCurrentPage,
+  setSearch,
+  setSort,
+} = gameSlice.actions;
 
 export default gameSlice.reducer;
 
-export const fetchGames = (searchGame, sort) => {
+export const fetchGames = (searchGame, currentPage, sort) => {
   return async (dispatch) => {
     const { data } = await instance({
       url: `/games`,
@@ -56,7 +72,7 @@ export const fetchGames = (searchGame, sort) => {
 export const fetchGameById = (gameId) => {
   return async (dispatch) => {
     let { data } = await instance({
-      url: `/games/${id}`,
+      url: `/games/${gameId}`,
       method: "GET",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("access_token")}`,
