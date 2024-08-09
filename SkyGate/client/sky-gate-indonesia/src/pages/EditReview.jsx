@@ -1,38 +1,65 @@
-import { Link, useNavigate, useParams } from "react-router-dom"
-import AirportDetail from "./AirportDetail"
-import { useState } from "react"
-import ApiRequest from "../helpers/ApiRequest"
-import Swal from 'sweetalert2'
+import { Link, useNavigate, useParams } from "react-router-dom";
+import AirportDetail from "./AirportDetail";
+import { useEffect, useState } from "react";
+import ApiRequest from "../helpers/ApiRequest";
+import Swal from 'sweetalert2';
 
-const AddReview = () => {
-    const { airportCode } = useParams();
+const EditReview = () => {
+    const { airportCode, id } = useParams();
     const [rate, setRate] = useState('');
     const [comment, setComment] = useState('');
     const navigate = useNavigate();
 
-    const addReview = async (e) => {
+    const getReviewDetail = async () => {
+        try {
+            let { data } = await ApiRequest({
+                url: `/airports/${airportCode}/reviews/${id}`,
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                }
+            });
+            console.log(data, '<<');
+            
+            setRate(data.rate);
+            setComment(data.comment);
+        } catch (error) {
+            console.log(error);
+            Swal.fire({
+                title: 'Oh No!',
+                text: error.response?.data?.message || 'Failed to fetch review details.',
+                icon: 'error'
+            });
+        }
+    };
+
+    useEffect(() => {
+        getReviewDetail()
+    }, [airportCode, id]);
+
+    const editReview = async (e) => {
         e.preventDefault();
         const reqBody = { rate, comment };
         try {
             await ApiRequest({
-                url: `/airports/${airportCode}/reviews`,
-                method: 'POST',
+                url: `/airports/${airportCode}/reviews/${id}`,
+                method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('access_token')}`
                 },
                 data: reqBody
             });
-            navigate(`/airports/${airportCode}`);
             Swal.fire({
-                title: 'All Right!',
-                text: 'Thanks for adding a review',
+                title: 'Yes sir!',
+                text: 'Review edited successfully',
                 icon: 'success'
             });
+            navigate(`/airports/${airportCode}`);
         } catch (error) {
             console.log(error);
             Swal.fire({
                 title: 'Oh No!',
-                text: error.response.data.message,
+                text: error.response?.data?.message || 'Failed to edit review.',
                 icon: 'error'
             });
         }
@@ -45,7 +72,7 @@ const AddReview = () => {
                 <div className="w-full max-w-lg bg-white shadow-lg rounded-lg p-8 relative">
                     <div className="flex items-center">
                         <h3 className="text-blue-600 text-xl font-bold flex-1">
-                            Add A Review
+                            Edit Your Review
                         </h3>
                         <Link to={`/airports/${airportCode}`}>
                             <svg
@@ -64,12 +91,15 @@ const AddReview = () => {
                             </svg>
                         </Link>
                     </div>
-                    <form onSubmit={addReview} className="space-y-4 mt-8">
+                    <form onSubmit={editReview} className="space-y-4 mt-8">
                         <div>
-                            <labe className="text-gray-800 text-sm mb-2 block">
+                            <label className="text-gray-800 text-sm mb-2 block">
                                 Rate
-                            </labe>
-                            <input value={rate} onChange={(e) => setRate(e.target.value)}
+                            </label>
+                            <input
+                                value={rate}
+                                name="rate"
+                                onChange={(e) => setRate(e.target.value)}
                                 className="px-4 py-3 bg-gray-100 w-full text-gray-800 text-sm border-none focus:outline-blue-600 focus:bg-transparent rounded-lg"
                                 placeholder="from 1 to 10"
                                 type="number"
@@ -79,16 +109,21 @@ const AddReview = () => {
                             <label className="text-gray-800 text-sm mb-2 block">
                                 Review
                             </label>
-                            <textarea value={comment} onChange={(e) => setComment(e.target.value)}
+                            <textarea
+                                value={comment}
+                                name="comment"
+                                onChange={(e) => setComment(e.target.value)}
                                 className="px-4 py-3 bg-gray-100 w-full text-gray-800 text-sm border-none focus:outline-blue-600 focus:bg-transparent rounded-lg"
                                 placeholder="Tell us about the airport!"
                                 rows="3"
                             />
                         </div>
                         <div className="flex justify-end gap-4 !mt-8">
-                            <Link to={`/airports/${airportCode}`}
+                            <Link
+                                to={`/airports/${airportCode}`}
                                 className="px-6 py-3 rounded-lg text-gray-800 text-sm border-none outline-none tracking-wide bg-gray-200 hover:bg-gray-300"
-                                type="button">
+                                type="button"
+                            >
                                 Cancel
                             </Link>
                             <button
@@ -102,7 +137,7 @@ const AddReview = () => {
                 </div>
             </div>
         </>
-    )
-}
+    );
+};
 
-export default AddReview
+export default EditReview;

@@ -6,6 +6,7 @@ import Swal from 'sweetalert2'
 import ApiRequest from "../helpers/ApiRequest"
 import ReviewCard from "../components/ReviewCard"
 import AiResponseCard from "../components/AiResponseCard"
+import axios from "axios"
 
 const AirportDetail = () => {
     const [airportDetail, setAirportDetail] = useState({});
@@ -46,7 +47,6 @@ const AirportDetail = () => {
                 },
                 data: { question }
             });
-            console.log(data, '<<<<<<<');
             setSuggestion(data.response);
         } catch (error) {
             console.log(error);
@@ -58,11 +58,36 @@ const AirportDetail = () => {
         }
     };
 
+    const handleDelete = async (id) => {
+        try {
+            let {data} = await axios.delete(`http://localhost:3000/airports/${airportCode}/reviews/${id}`, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                }
+            })
+            fetchDetailAirport()
+            Swal.fire({
+                title: 'Review Deleted',
+                text: 'Review removed. Miss them already!',
+                icon: 'success'
+            })
+        } catch (error) {
+            console.log(error);
+            Swal.fire({
+                title: 'Oh No!',
+                text: error.response.data.message,
+                icon: 'error'
+            });
+        }
+    }
 
     useEffect(() => {
-        fetchDetailAirport();
-        chatbot()
+        if (!airportDetail || Object.keys(airportDetail).length === 0) {
+            fetchDetailAirport();
+        }
+        chatbot();
     }, []);
+    
 
     const reviews = Array.isArray(airportDetail.Reviews) ? airportDetail.Reviews : [];
 
@@ -76,7 +101,7 @@ const AirportDetail = () => {
                 <div>
                     {reviews.length > 0 ? (
                         reviews.map((item) => (
-                            <ReviewCard key={item.id} item={item} />
+                            <ReviewCard key={item.id} item={item} airportCode={airportCode} handleDelete={handleDelete} />
                         ))
                     ) : (
                         <div className="w-[43vw] lg:ml-40 my-4 shadow-gray-500/15 font-outfit flex flex-col bg-white border border-t-4 border-t-blue-600 shadow-md rounded-xl">

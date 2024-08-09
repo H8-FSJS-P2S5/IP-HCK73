@@ -25,10 +25,6 @@ const LoginPage = () => {
         }
     }
 
-
-
-
-
     return (
         <div className="bg-white font-outfit">
             <div className="flex justify-center h-screen">

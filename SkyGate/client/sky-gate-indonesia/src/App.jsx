@@ -14,6 +14,7 @@ import AirportDetail from "./pages/AirportDetail";
 import { useEffect } from "react";
 import axios from "axios";
 import AddReview from "./pages/AddReview";
+import EditReview from "./pages/EditReview";
 
 const router = createBrowserRouter([
   {
@@ -40,7 +41,7 @@ const router = createBrowserRouter([
     element: <MainLayout />,
     loader: () => {
       if (!localStorage.getItem('access_token')) {
-        return redirect('/ogin')
+        return redirect('/login')
       }
       return null
     },
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
       {
         path: "/airports/:airportCode/reviews",
         element: <AddReview />
+      },
+      {
+        path: "/airports/:airportCode/reviews/:id",
+        element: <EditReview />
       },
       {
         path: '*',
