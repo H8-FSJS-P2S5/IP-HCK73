@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import instance from "../helpers/instance";
 import GoogleLogin from "../components/GoogleLogin";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -40,8 +41,15 @@ const Login = () => {
 
   return (
     <div>
+      <div className="mt-10 justify-center">
+        <img
+          className="w-1/3 text-center mx-auto"
+          src="https://i.ibb.co.com/0ct2XxG/GAMEDOM-Logo-Original-with-Transparent-Background-Cropped.png"
+          alt="GameDom"
+        />
+      </div>
       {/* Login Form */}
-      <div className="mt-24">
+      <div className="mt-10">
         <div className="mx-auto w-1/3 bg-[#151515] border border-black rounded-xl shadow-lg">
           <div className="p-4 sm:p-7">
             <div className="text-center">
