@@ -11,6 +11,27 @@ class RecipeController {
     }
   }
 
+  static async getAllUserRecipes(req,res,next){
+    try {
+
+      let {id} = req.user
+      
+      
+      const data = await Recipe.findAll({
+        where : {
+          UserId : id
+        }
+      }) 
+
+
+      res.status(200).json(data);
+      
+
+    } catch (error) {
+      next(error)
+    }
+  }
+
   static async getRecipebyId(req, res, next) {
     try {
       const { id } = req.params;
@@ -34,7 +55,7 @@ class RecipeController {
       });
 
       res.status(201).json(new_recipe);
-    } catch (error) {
+    } catch (error) {      
       next(error);
     }
   }

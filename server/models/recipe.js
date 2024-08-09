@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       ingredients: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
         validate: {
           notNull: {

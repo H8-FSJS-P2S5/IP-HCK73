@@ -58,13 +58,15 @@ async function authentincation(req, res, next) {
 router.get("/user/:id",UserController.getUserById)
 
 router.get("/recipes",authentincation, RecipeController.getAllrecipe)
+router.post("/recipes",authentincation,RecipeController.addRecipe)
+
+router.get("/recipes/user",authentincation,RecipeController.getAllUserRecipes)
 router.get("/recipes/:id",authentincation , RecipeController.getRecipebyId)
 
-router.post("/recipes",authentincation,RecipeController.addRecipe)
 router.put("/recipes/:id",authentincation,RecipeController.editRecipe)
 router.delete("/recipes/:id",authentincation,RecipeController.deleteRecipe)
 
-router.get ("/ai",UserController.ai)
+router.post ("/ai",authentincation,UserController.ai)
 
 router.use(errorHandeler);
 

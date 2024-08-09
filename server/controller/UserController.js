@@ -18,9 +18,11 @@ class UserController {
 
       const {googleToken} = req.body 
 
+      // console.log(googleToken)
+
       const ticket = await client.verifyIdToken({
         idToken: googleToken,
-        audience: process.env.AUDIENCE
+        audience: process.env.GOOGLE_CLIENT_ID
       });
       const payload = ticket.getPayload();
       const [user, created] = await User.findOrCreate({
@@ -95,10 +97,8 @@ class UserController {
       }
 
       const accessToken = signToken({ id: user.id });
-
-      res.status(200).json({
-        access_token: accessToken,
-      });
+      
+      res.status(200).json({access_token: accessToken});
     } catch (error) {
         next(error)
         
@@ -130,7 +130,7 @@ class UserController {
 
             const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
 
-            const prompt = `dont answer anything not about food ,and if the prompt not about food just answer just answer "i am Cooker not (and add the promp)" .${promp} , and the answer should be in format title: ingredients: without any decoraion`
+            const prompt = `dont answer anything not about food or drinks ,and if the prompt not about food  just answer "i dont understand" .${promp} , and the answer should be in format title: ingredients: without any decoraion `
           
             const result = await model.generateContent(prompt);
             const response = await result.response;

@@ -5,8 +5,8 @@ export default function Card() {
 
     <div >
   
-  <div className=" bg-gray-500 bg-opacity-20 rounded-xl p-4 flex  justify-between  m-5">
-      <div className='bg-black  h-44 w-1/4 mr-5'></div>
+  <div className=" bg-gray-500 bg-opacity-20 rounded-xl  flex justify-between w-screen">
+      <div className='bg-black h-44 w-40 '></div>
    <div>
    <div className="mb-8">
       <div className="text-gray-900 font-bold text-xl mb-2">
