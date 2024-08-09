@@ -1,0 +1,6 @@
+node_modules
+sqlz_command.txt
+schema.drawio
+.env
+conString.txt
+skygate-pem.pem
