@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import RequestAPI from "../../helper/RequestAPI";
-import data from "./recipe.json";
 import { Link } from "react-router-dom";
+
+import Swal from 'sweetalert2'
+
 export default function OurRecipes() {
   const [ourRecipe, setOurRecipe] = useState([]);
   const [ingredients, setIngredients] = useState("");
   const [image , setImage] =useState("")
+  const [apiId, setApiId] = useState("")
 
   const FetchDataFromApi = async () => {
     try {
@@ -16,7 +19,9 @@ export default function OurRecipes() {
           "x-api-key": "240398cbe8b54192903dadbe27ad54e5",
         },
       });
-
+      console.log(data);
+      
+      setApiId(data.recipes[0].id)
       setOurRecipe(data.recipes[0].title);
       setImage(data.recipes[0].image);
       let ingredients = data.recipes[0].extendedIngredients;
@@ -27,12 +32,17 @@ export default function OurRecipes() {
 
       setIngredients(ingredients.join(" "));
     } catch (error) {
-      console.log(error);
+        Swal.fire({
+            title: 'Error!',
+            text: error.response.data.message,
+            icon: 'error',
+            confirmButtonText: 'OK'
+          })
     }
   };
 
   useEffect(() => {
-    // FetchDataFromApi()
+    FetchDataFromApi()
   }, []);
 
 
@@ -116,20 +126,22 @@ export default function OurRecipes() {
             <div className="h-1/3 flex flex-col-reverse">  
             <div className=" bg-black bg-opacity-40 flex justify-center">
 
-              <h5 className=" m-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-white text-center">
+              <h5 className=" m-2 font-cool text-xl antialiased font-semibold leading-snug tracking-normal text-white text-center">
                 {ourRecipe}
               </h5>
             </div>
              </div>
 
             <div  className="flex justify-center flex-wrap mb-5" >
-            <p className=" font-sans text-base antialiased font-light leading-relaxed text-inherit mt-5">
+            <p className=" font-cool text-base antialiased font-light leading-relaxed text-inherit mt-5">
                 {ingredients.slice(0,50)} ..
               </p>
 
             </div>
             <div className="p-6 flex gap-2 pt-0 mt-1">
-              <Link className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-black text-white shadow-lg shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none hover:bg-slate-400 hover:text-black ">
+              <Link className="align-middle select-none font-cool font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-black text-white shadow-lg shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none hover:bg-slate-400 hover:text-black "
+              to={`/detail/api/${apiId}`}
+              >
                 Read
               </Link>
              
@@ -138,7 +150,7 @@ export default function OurRecipes() {
 
         <div className=" w-4/6  h-96 flex flex-col p-10 justify-center gap-5">
             <h1 className="text-6xl">
-                Rondom Recipe Maybe You Would like To Try.
+                Random Recipe Maybe You Would like To Try.
                 </h1>
                 <p>this will generate new recipe evreytime you refresh. </p>
     
@@ -161,15 +173,16 @@ export default function OurRecipes() {
              <div className="h-1/3 flex flex-col-reverse">  
              <div className=" bg-black bg-opacity-40 flex justify-center">
  
-               <h5 className=" m-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-white text-center">
+               <h5 className=" m-2 font-cool text-xl antialiased font-semibold leading-snug tracking-normal text-white text-center">
                  {el.title.slice(0,24)}
                </h5>
              </div>
               </div>
- 
-       
-             <div className="p-6 flex gap-2 pt-0 mt-7">
-               <Link className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-black text-white shadow-lg shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none hover:bg-slate-400 hover:text-black ">
+        
+             <div className="p-6 flex gap-2 pt-0 mt-7 font-cool">
+               <Link className="align-middle select-none font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-black text-white shadow-lg shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none hover:bg-slate-400 hover:text-black "
+                to={`/detail/api/${el.id}`}
+               >
                  Read
                </Link>
               

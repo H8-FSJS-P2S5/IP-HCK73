@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import RequestRecipe from "../../helper/RequestRecipe";
 import NavBar from "../components/NavBar";
+import { Link } from "react-router-dom";
+import Swal from 'sweetalert2'
+
 
 export default function AllRecipe() {
   const [allRecipes, setAllRecipes] = useState([]);
@@ -17,9 +20,18 @@ export default function AllRecipe() {
 
       setAllRecipes(data);
     } catch (error) {
-      console.log(error);
+        Swal.fire({
+            title: 'Error!',
+            text: error.response.data.message,
+            icon: 'error',
+            confirmButtonText: 'OK'
+          })
     }
   };
+
+//   const [user ,setUser] = useState("")
+
+//   const getUserById()
 
   useEffect(() => {
     getAllRecipe();
@@ -28,7 +40,14 @@ export default function AllRecipe() {
   return (
     <>
 
-      <div className="bg-blue-300 p-10 pt-20">
+<div className="bg-amber-200 h-52 flex justify-center items-center pt-28 gap-3 font-cool w-screen"> 
+  <div className="w-96 font-cool text-4xl">
+            <h1>- Share and Explore -</h1>
+  </div>
+      </div>
+   
+
+      <div className=" p-10 pt-20">
         <div className="h-1/4 bg-red-400"></div>
         <div className="flex flex-wrap justify-center gap-2">
           {allRecipes.map((el) => (
@@ -42,12 +61,13 @@ export default function AllRecipe() {
                 </p>
               </div>
               <div className="p-6 pt-0">
-                <button
+                <Link
                   className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
                   type="button"
+                  to={`/detail/${el.id}`}
                 >
                   Read More
-                </button>
+                </Link>
               </div>
             </div>
           ))}

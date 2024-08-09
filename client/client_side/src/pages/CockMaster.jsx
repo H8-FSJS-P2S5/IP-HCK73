@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import RequestRecipe from '../../helper/RequestRecipe'
 import AddRecipe from './AddRecipe'
 import { Link } from 'react-router-dom'
+import Swal from 'sweetalert2'
+
 
 export default function CockMaster() {
 
@@ -28,7 +30,12 @@ export default function CockMaster() {
                                         
 
         } catch (error) {
-            console.log(error);
+            Swal.fire({
+                title: 'Error!',
+                text: error.response.data.message,
+                icon: 'error',
+                confirmButtonText: 'OK'
+              });
             
         }
     }

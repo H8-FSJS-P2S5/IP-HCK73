@@ -6,6 +6,8 @@ import secondImg from '../assets/top-view-food-ingredients-with-veggies-notebook
 import leftImg from '../assets/IMG_9895.jpg'
 import spoon from '../assets/pngwing.com.png'
 import NavBar from '../components/NavBar'
+import Swal from 'sweetalert2'
+
 
 export default function Home_page() {
   return (

@@ -3,6 +3,8 @@ import RequestRecipe from '../../helper/RequestRecipe'
 import Card from '../components/Card'
 import ProfileCards from '../components/ProfileCards'
 import NavBarProfile from '../components/NavBarProfile'
+import Swal from 'sweetalert2'
+
 
 export default function UserProfile() {
 
@@ -52,7 +54,7 @@ export default function UserProfile() {
     <>
 
     <NavBarProfile/>
-    <div className=' bg-orange-100 font-cool'>
+    <div className=' bg-orange-50 font-cool'>
         <div className='h-40'></div>
 
     <div className=' h-24 flex justify-center items-center'>

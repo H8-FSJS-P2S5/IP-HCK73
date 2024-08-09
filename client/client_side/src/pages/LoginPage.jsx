@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import RequestRecipe from "../../helper/RequestRecipe";
 import { Link, useNavigate } from "react-router-dom";
 import GoogleLogin from "../components/GoogleLogin";
+import Swal from 'sweetalert2'
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -25,7 +26,13 @@ export default function LoginPage() {
 
       navigate("/");
     } catch (error) {
-      console.log(error);
+        
+        Swal.fire({
+            title: 'Error!',
+            text: error.response.data.message,
+            icon: 'error',
+            confirmButtonText: 'OK'
+          })
     }
   };
 
@@ -33,14 +40,12 @@ export default function LoginPage() {
     <>
       <div className="font-[sans-serif]">
         <div className="grid lg:grid-cols-2 gap-4 max-lg:gap-12 bg-gradient-to-r from-blue-500 to-blue-700 px-8 py-12 h-[320px]">
-          <div>
-            <h1 className="text-6xl font-abc text-white">Tasetful</h1>
+        <div className="bg-slate-500 flex flex-col p-5 font-cool justify-center items-center text-center">
+            <h1 className="text-6xl  text-white">- Tasetful -</h1>
             <div className="max-w-lg mt-16 max-lg:hidden">
               <h3 className="text-3xl font-bold text-white">Sign in</h3>
               <p className="text-sm mt-4 text-white">
-                Embark on a seamless journey as you sign in to your account.
-                Unlock a realm of opportunities and possibilities that await
-                you.
+              "Welcome back Chef"
               </p>
             </div>
           </div>

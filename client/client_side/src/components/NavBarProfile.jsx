@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2'
+
 
 export default function NavBarProfile() {
 
@@ -10,8 +12,13 @@ export default function NavBarProfile() {
       localStorage.clear()
       navigat("/")
     } catch (error) {
-      console.log(error);
-      
+      Swal.fire({
+        title: 'Error!',
+        text: error.response.data.message,
+        icon: 'error',
+        confirmButtonText: 'OK'
+      })
+
     }
   }
   return (
