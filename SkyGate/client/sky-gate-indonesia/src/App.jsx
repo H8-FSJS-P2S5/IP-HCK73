@@ -15,6 +15,8 @@ import { useEffect } from "react";
 import axios from "axios";
 import AddReview from "./pages/AddReview";
 import EditReview from "./pages/EditReview";
+import { Provider } from "react-redux";
+import { store } from "./airport";
 
 const router = createBrowserRouter([
   {
@@ -77,7 +79,9 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <RouterProvider router={router} />
+      <RouterProvider router={router} />
+    // <Provider store={store}>
+    // </Provider>
   )
 }
 
