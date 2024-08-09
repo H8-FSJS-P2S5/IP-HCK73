@@ -1,6 +1,8 @@
 # IP-HCK73
 
-> Deployment Link: 
+> Deployment Link:
+- Server: https://ip.gdevjs.site
+- Client: https://hck-73-ip.web.app
 
 # API Documentation
 

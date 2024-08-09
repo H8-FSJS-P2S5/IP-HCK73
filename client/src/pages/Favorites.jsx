@@ -39,7 +39,7 @@ const Favorites = () => {
               text: data.message,
               icon: "success",
             });
-            ReadAllFavorites();
+            dispatch(fetchFavorites());
           } catch (error) {
             if (error.response) {
               Swal.fire({
