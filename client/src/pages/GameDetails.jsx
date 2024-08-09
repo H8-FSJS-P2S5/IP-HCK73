@@ -6,13 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchGameById } from "../features/games/gameSlice";
 
 const GameDetails = () => {
-  const game = useSelector((state => state.games.detail))
+  const game = useSelector((state) => state.games.detail);
   const dispatch = useDispatch();
 
   const { id } = useParams();
 
   useEffect(() => {
-    dispatch(fetchGameById(id))
+    dispatch(fetchGameById(id));
   }, []);
 
   return (
@@ -23,7 +23,7 @@ const GameDetails = () => {
             <div className="img-box h-full max-lg:mx-auto lg:pl-14">
               <img
                 alt={game.title}
-                className="max-lg:mx-auto lg:ml-auto h-full rounded-xl"
+                className="max-lg:mx-auto lg:ml-auto rounded-xl"
                 src={game.imgUrl}
               />
             </div>
