@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function GoogleLogin() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     google.accounts.id.initialize({
@@ -12,9 +12,12 @@ function GoogleLogin() {
       // callback function to handle the response
       callback: async (response) => {
         console.log("Encoded JWT ID token: " + response.credential);
-        const { data } = await axios.post("http://localhost:3000/auth/google", {
-          googleToken: response.credential,
-        });
+        const { data } = await axios.post(
+          "https://ip.gdevjs.site/auth/google",
+          {
+            googleToken: response.credential,
+          }
+        );
 
         localStorage.setItem("access_token", data.access_token);
 
