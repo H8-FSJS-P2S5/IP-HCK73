@@ -5,11 +5,12 @@ import { Link } from 'react-router-dom'
 import secondImg from '../assets/top-view-food-ingredients-with-veggies-notebook.jpg'
 import leftImg from '../assets/IMG_9895.jpg'
 import spoon from '../assets/pngwing.com.png'
+import NavBar from '../components/NavBar'
 
 export default function Home_page() {
   return (
     <>
-
+    <NavBar/>
     <div className='flex w-screen'>
 
         <div className='flex-col w-1/4 '>

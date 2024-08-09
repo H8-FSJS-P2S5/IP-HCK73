@@ -66,7 +66,7 @@ router.get("/recipes/:id",authentincation , RecipeController.getRecipebyId)
 router.put("/recipes/:id",authentincation,RecipeController.editRecipe)
 router.delete("/recipes/:id",authentincation,RecipeController.deleteRecipe)
 
-router.get ("/ai",UserController.ai)
+router.post ("/ai",authentincation,UserController.ai)
 
 router.use(errorHandeler);
 

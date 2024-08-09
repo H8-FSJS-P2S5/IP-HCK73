@@ -13,15 +13,17 @@ import AllRecipe from "./pages/AllRecipe";
 import UserLayout from "./components/UserLayout";
 import UserProfile from "./pages/UserProfile";
 import OurRecipes from "./pages/OurRecipes";
+import CockMaster from "./pages/CockMaster";
 
 const router = createBrowserRouter([
   {
+    path: "/",
+    element: <Home_page />,
+  },
+  {
     element: <PublicLayout />,
     children: [
-      {
-        path: "/",
-        element: <Home_page />,
-      },
+     
       {
         path: "/all-recipe",
         element: <AllRecipe />,
@@ -31,13 +33,13 @@ const router = createBrowserRouter([
         element : <OurRecipes/>
       }
     ],
-    // loader: () => {
-    //   if (!localStorage.getItem("access_token")) {
-    //     return redirect("/login");
-    //   }
+    loader: () => {
+      if (!localStorage.getItem("access_token")) {
+        return redirect("/login");
+      }
 
-    //   return null;
-    // },
+      return null;
+    },
   },
   {
     element: <Authlayout />,
@@ -51,22 +53,19 @@ const router = createBrowserRouter([
         element: <RegisterPage />,
       },
     ],
-    // loader: () => {
-    //   if (localStorage.getItem("access_token")) {
-    //     return redirect("/");
-    //   }
+    loader: () => {
+      if (localStorage.getItem("access_token")) {
+        return redirect("/");
+      }
 
-    //   return null;
-    // },
+      return null;
+    },
   },
 
   {
     element : <UserLayout/>,
     children : [
-      {
-        path : "/profile",
-        element :  <UserProfile/>
-      },
+     
       {
         element: <AddRecipe />,
         path: "/add-edit",
@@ -76,9 +75,28 @@ const router = createBrowserRouter([
         path: "/add-edit/:id",
       },
       {
-        element
+        element : <CockMaster/>,
+        path : "/cock-master"
       }
-    ]
+    ],
+    loader: () => {
+      if (!localStorage.getItem("access_token")) {
+        return redirect("/login");
+      }
+
+      return null;
+    },
+  },
+  {
+    path : "/profile",
+    element :  <UserProfile />,
+    loader: () => {
+      if (!localStorage.getItem("access_token")) {
+        return redirect("/login");
+      }
+
+      return null;
+    },
   },
 
   

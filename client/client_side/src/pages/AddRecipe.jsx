@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import RequestRecipe from '../../helper/RequestRecipe'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 
-export default function AddRecipe() {
+export default function AddRecipe(props) {
 
+    const location = useLocation()
+    const {answer} = location.state || ""
+    
     const {id} = useParams()
+    
 
     const [title , setTitle] = useState("")
     const [ingredients , setIngredients] = useState("")
@@ -28,6 +32,9 @@ export default function AddRecipe() {
                 }
             })
 
+            console.log("sss");
+            
+
             navigate("/profile")
                             
         } catch (error) {
@@ -35,6 +42,28 @@ export default function AddRecipe() {
             
         }
     }
+
+
+    const getRecipeById = async () => {
+        try {
+            let {data} = await RequestRecipe({
+                url: `/recipes/${id}`,
+                method : "GET",
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+                },
+            })
+            console.log(data);
+            
+            setTitle(`${data.title}`)
+            setIngredients(`${data.ingredients}`)
+
+        } catch (error) {
+            console.log(error);
+            
+        }
+    }
+
 
     const HandelEdit = async (e) =>{
         e.preventDefault()
@@ -59,6 +88,13 @@ export default function AddRecipe() {
             
         }
     }
+
+    useEffect(() => {
+        if(id){
+            getRecipeById()
+        }
+        setIngredients(answer)
+    },[])
 
 
   return (

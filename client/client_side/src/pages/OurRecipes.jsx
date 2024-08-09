@@ -35,16 +35,40 @@ export default function OurRecipes() {
     // FetchDataFromApi()
   }, []);
 
-  console.log(ourRecipe);
-  console.log(ingredients);
+
+
+  const [search ,setSearch] = useState("")
+  const [searchedRecipe, setSearchedRecipe] = useState([])
+
+  const SearchAPI = async(e) =>{
+    e.preventDefault()
+    try {
+        let {data} = await RequestAPI({
+            url : `/recipes/complexSearch?query=${search}`,
+            method : "GET",
+            headers: {
+                "x-api-key": "240398cbe8b54192903dadbe27ad54e5",
+              },
+        })
+        
+    setSearchedRecipe(data.results);
+        
+    } catch (error) {
+        console.log(error);
+        
+    }
+  }
 
   return (
     <>
       <div className="bg-lime-200 h-52 flex flex-col items-center pt-20 gap-3 font-cool"> 
         <h1 className="text-2xl">search for recipe</h1>
 
+
   <div className="w-96 font-cool">
-    <div className="flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-white overflow-hidden">
+    <form onSubmit={SearchAPI}>
+
+    <div className="flex items-center w-full h-12 rounded-lg  bg-white overflow-hidden pr-5">
       <div className="grid place-items-center h-full w-12 text-gray-300">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -66,8 +90,15 @@ export default function OurRecipes() {
         type="text"
         id="search"
         placeholder="Search something.."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+
       />
+        <button type="submit"> search </button>
     </div>
+
+
+    </form>
   </div>
 
 
@@ -78,7 +109,7 @@ export default function OurRecipes() {
         
 
         <div className="flex flex-wrap ml-10 ">
-          <div className=" flex flex-col bg-white shadow-xl  rounded-md w-96 h-96 ">
+        <div className=" flex flex-col bg-white shadow-xl  rounded-md w-96 h-96 ">
             <div className="h-1/3 ">
                 <img src={`${image}`} alt="" />
             </div>
@@ -115,6 +146,39 @@ export default function OurRecipes() {
         </div>
 
       </div>
+
+    {searchedRecipe.length > 0 &&   <div className=" w-screen flex flex-wrap justify-center gap-2 font-cool" >
+        <div className=" w-4/6  mb-5 flex   justify-center gap-5 w-screen">
+            <h1 className="text-6xl">
+               - Search Results -
+                </h1>    
+        </div>
+        {searchedRecipe.map((el) => (
+             <div className=" flex flex-col bg-white shadow-xl  rounded-md w-72 h-96 ">
+             <div className="h-1/3 ">
+                 <img src={`${el.image}`} alt="" />
+             </div>
+             <div className="h-1/3 flex flex-col-reverse">  
+             <div className=" bg-black bg-opacity-40 flex justify-center">
+ 
+               <h5 className=" m-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-white text-center">
+                 {el.title.slice(0,24)}
+               </h5>
+             </div>
+              </div>
+ 
+       
+             <div className="p-6 flex gap-2 pt-0 mt-7">
+               <Link className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-black text-white shadow-lg shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none hover:bg-slate-400 hover:text-black ">
+                 Read
+               </Link>
+              
+             </div>
+           </div>
+        ))}
+
+    </div> }
+    
     </>
   );
 }

@@ -1,7 +1,19 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-export default function NavBar() {
+export default function NavBarProfile() {
+
+  const navigat = useNavigate()
+
+  const HandleLogout =async() =>{
+    try {
+      localStorage.clear()
+      navigat("/")
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
   return (
     <nav className="relative border-0 w-screen ">
       <div className="w-full mx-auto flex justify-between items-center px-4 py-3 bg-black bg-opacity-60 fixed">
@@ -25,11 +37,7 @@ export default function NavBar() {
             community
           </Link>
 
-          {localStorage.getItem("access_token") ? (
-            <Link to={"/profile"}>Profile</Link>
-          ) : (
-            <Link to={"/login"}>Login</Link>
-          )}
+         <button className="hover:text-red-600" onClick={HandleLogout}>Logout</button>
         </div>
       </div>
     </nav>
