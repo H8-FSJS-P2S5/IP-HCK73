@@ -1,0 +1,38 @@
+[
+  {
+    "UserId": 1,
+    "GameId": 1
+  },
+  {
+    "UserId": 1,
+    "GameId": 2
+  },
+  {
+    "UserId": 1,
+    "GameId": 3
+  },
+  {
+    "UserId": 2,
+    "GameId": 2
+  },
+  {
+    "UserId": 2,
+    "GameId": 3
+  },
+  {
+    "UserId": 1,
+    "GameId": 4
+  },
+  {
+    "UserId": 3,
+    "GameId": 3
+  },
+  {
+    "UserId": 3,
+    "GameId": 4
+  },
+  {
+    "UserId": 3,
+    "GameId": 5
+  }
+]
