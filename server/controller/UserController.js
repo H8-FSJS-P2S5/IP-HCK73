@@ -5,7 +5,7 @@ const { User } = require("../models");
 
 
 const { GoogleGenerativeAI } = require("@google/generative-ai");
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_KEY);
+const genAI = new GoogleGenerativeAI('AIzaSyAXF2T4XqD9b25q9A5WWSYzOUj47tlmYRE');
 
 const {OAuth2Client} = require('google-auth-library');
 const client = new OAuth2Client();
@@ -124,17 +124,27 @@ class UserController {
     try {
 
         const{promp} = req.body
-
+        
+      console.log(promp,"<<<<<<");
+      
 
         async function run() {
 
             const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
 
-            const prompt = `dont answer anything not about food or drinks ,and if the prompt not about food  just answer "i dont understand" .${promp} , and the answer should be in format title: ingredients: without any decoraion `
+            const prompt = `langsung jawab dont answer anything not about food or drinks ,and if the prompt not about food  just answer "009900" .${promp} , and the answer should be in format title: ingredients: without any decoraion make it with full detalis instrucion and steps make clear as possible
+            i want the the result in like this form 
+            Title: Simple Vegetable Soup 
+            Ingredients: * 1 tablespoon olive oil * 1 onion, chopped * 2 carrots, chopped * 2 celery stalks, chopped 
+            Instructions: 1. Heat olive oil in a large pot or Dutch oven over medium heat. Add onion, carrots, and celery and cook until softened, about 5-7 minutes. 2. Add garlic and cook for 1 minute more, until fragrant.
+            but make it all in one line without enter dont forget the Ingredients add the *
+            `
           
             const result = await model.generateContent(prompt);
             const response = await result.response;
-            const text = response.text();
+            const text = response.text();    
+            console.log(text,"<<<<<<<ff<<<");
+                  
             res.send(text);
           }
           

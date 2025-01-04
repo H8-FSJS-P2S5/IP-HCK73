@@ -3,33 +3,28 @@ import { Link } from "react-router-dom";
 
 export default function NavBar() {
   return (
-    <nav className="relative border-0 w-screen ">
-      <div className="w-full mx-auto flex justify-between items-center px-4 py-3 bg-black bg-opacity-60 fixed">
+    <nav className="relative border-0 w-screen z-10">
+      <div className="w-full  flex justify-between items-center px-10 py-3 fixed  bg-opacity-25 backdrop-filter backdrop-blur-sm">
         <div className="flex w-1/3">
-          <Link className="text-xl text-white ml-24 font-cool" to={"/"}>
-            Tasteful
+          <Link className="text-2xl font-cool hover:text-[#7fa947]" to={"/"}>
+            Tasteful ®
           </Link>
         </div>
-        <div className="w-1/3"></div>
-        <div className="flex space-x-4 w-1/3 justify-center text-white items-center ">
+        
+        <div className="flex space-x-4  justify-end  items-center">
           <Link
             to={"/cock-master"}
-            className=" hover:text-black text-lg font-semibold "
+            className=" text-lg font-semibold hover:text-[#7fa947] "
           >
             CookMaster AI
           </Link>
-          <Link to={"/our-recipes"} className=" hover:text-blue-500">
+          <Link to={"/our-recipes"} className=" hover:text-[#7fa947]">
             Our Recipes
           </Link>
-          <Link to={"/all-recipe"} className=" hover:text-blue-500">
-            community
-          </Link>
+          {/* <Link to={"/all-recipe"} className=" hover:text-[#7fa947]">
+            Community
+          </Link> */}
 
-          {localStorage.getItem("access_token") ? (
-            <Link to={"/profile"}>Profile</Link>
-          ) : (
-            <Link to={"/login"}>Login</Link>
-          )}
         </div>
       </div>
     </nav>

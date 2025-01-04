@@ -44,13 +44,13 @@ const router = createBrowserRouter([
         element : <DetailAPI/>
       }
     ],
-    loader: () => {
-      if (!localStorage.getItem("access_token")) {
-        return redirect("/login");
-      }
+    // loader: () => {
+    //   if (!localStorage.getItem("access_token")) {
+    //     return redirect("/login");
+    //   }
 
-      return null;
-    },
+    //   return null;
+    // },
   },
   {
     element: <Authlayout />,
@@ -64,13 +64,13 @@ const router = createBrowserRouter([
         element: <RegisterPage />,
       },
     ],
-    loader: () => {
-      if (localStorage.getItem("access_token")) {
-        return redirect("/");
-      }
+    // loader: () => {
+    //   if (localStorage.getItem("access_token")) {
+    //     return redirect("/");
+    //   }
 
-      return null;
-    },
+    //   return null;
+    // },
   },
 
   {
@@ -90,25 +90,25 @@ const router = createBrowserRouter([
         path : "/cock-master"
       }
     ],
-    loader: () => {
-      if (!localStorage.getItem("access_token")) {
-        return redirect("/login");
-      }
+    // loader: () => {
+    //   if (!localStorage.getItem("access_token")) {
+    //     return redirect("/login");
+    //   }
 
-      return null;
-    },
+    //   return null;
+    // },
   },
-  {
-    path : "/profile",
-    element :  <UserProfile />,
-    loader: () => {
-      if (!localStorage.getItem("access_token")) {
-        return redirect("/login");
-      }
+  // {
+  //   path : "/profile",
+  //   element :  <UserProfile />,
+  //   // loader: () => {
+  //   //   if (!localStorage.getItem("access_token")) {
+  //   //     return redirect("/login");
+  //   //   }
 
-      return null;
-    },
-  },
+  //   //   return null;
+  //   // },
+  // },
 
   
  
