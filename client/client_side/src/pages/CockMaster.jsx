@@ -90,7 +90,7 @@ useEffect(() => {
 
 
   return (
-    <div className="bg-lime-200 px-32 py-20 min-h-screen flex flex-col justify-center">
+    <div className="bg-gradient-to-br from-green-50 via-yellow-50 to-pink-100 overflow-y-auto px-32 py-20 min-h-screen flex flex-col justify-center">
       <div
       ref={blockRef}
       className={`h-full px-20 flex flex-col ${answer ? 'items-end  translate-x-16' : 'items-center'}
@@ -99,12 +99,12 @@ useEffect(() => {
       }
       
       transition-all duration-500 space-y-4`}>
-        <h1 className={`${answer && "opacity-0 -translate-x-0"}transition-all  duration-500 text-4xl font-cool`}>Ask Me</h1>
+        <h1 className={`${answer && "opacity-0 -translate-x-0"}transition-all  duration-500 text-4xl font-cool`}>Ask Me .</h1>
 
         <div className="w-96 font-cool ">
-          <form onSubmit={CockAi}>
-            <div className="flex items-center w-full h-10 rounded-lg focus-within:shadow-lg overflow-hidden">
-              <div className="grid place-items-center w-12 absolute text-gray-300">
+            <form onSubmit={CockAi}>
+            <div className="flex items-center w-full h-10 rounded-lg shadow-lg overflow-hidden ">
+              <div className="grid place-items-center w-12 absolute text-gray-300 ">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6"
@@ -121,7 +121,7 @@ useEffect(() => {
                 </svg>
               </div>
               <input
-                className="h-full w-full pl-12 bg-white outline-none text-sm text-gray-700 pr-2"
+                className="h-full w-full pl-12 outline-none text-sm pr-2 "
                 type="text"
                 id="search"
                 placeholder="Search something.."
@@ -133,7 +133,7 @@ useEffect(() => {
 
 
         </div>
-        <p className={`${answer && "opacity-0 translate-x-0"} transition-all  duration-500 w-full font-thin text-center`}>&quot;Our AI recipe generator makes cooking easy and fun! Just tell us what ingredients you have or what you&apos;re in the mood for, and it will whip up a recipe just for you. Whether you&apos;re trying something new or using what’s in your fridge, we’ll help you create a delicious meal in no time!&quot;</p>
+        <p className={`${answer && "opacity-0 translate-x-0"} transition-all  duration-500 w-full font-thin text-center text-[#6a9347]`}>&quot;Our AI recipe generator makes cooking easy and fun! Just tell us what ingredients you have or what you&apos;re in the mood for, and it will whip up a recipe just for you. Whether you&apos;re trying something new or using what’s in your fridge, we’ll help you create a delicious meal in no time!&quot;</p>
 
       </div>
         <div

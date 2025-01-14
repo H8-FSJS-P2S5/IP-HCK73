@@ -70,8 +70,8 @@ export default function OurRecipes() {
   }
 
   return (
-    <>
-      <div className="bg-lime-200 h-52 flex flex-col items-center pt-20 gap-3 font-cool"> 
+    <div className="bg-gradient-to-br from-green-50 via-yellow-50 to-pink-100 overflow-y-auto">
+      <div className="flex flex-col items-center pt-20 gap-3 font-cool"> 
         <h1 className="text-2xl">search for recipe</h1>
 
 
@@ -119,27 +119,27 @@ export default function OurRecipes() {
         
 
         <div className="flex flex-wrap ml-10 ">
-        <div className=" flex flex-col bg-white shadow-xl  rounded-md w-96 h-96 ">
+        <div className=" flex flex-col bg-white shadow-xl overflow-hidden  rounded-lg w-96 h-96 ">
             <div className="h-1/3 ">
                 <img src={`${image}`} alt="" />
             </div>
-            <div className="h-1/3 flex flex-col-reverse">  
-            <div className=" bg-black bg-opacity-40 flex justify-center">
+            <div className="h-1/3 flex flex-col-reverse p-1">  
+            <div className=" bg-black bg-opacity-40 backdrop-blur-sm flex rounded-sm">
 
-              <h5 className=" m-2 font-cool text-xl antialiased font-semibold leading-snug tracking-normal text-white text-center">
+              <h5 className=" m-2 text-xl antialiased  leading-snug tracking-normal text-white text-center">
                 {ourRecipe}
               </h5>
             </div>
              </div>
 
             <div  className="flex justify-center flex-wrap mb-5" >
-            <p className=" font-cool text-base antialiased font-light leading-relaxed text-inherit mt-5">
+            <p className=" font-cool text-base antialiased text-inherit mt-5 text-[#7fa947]">
                 {ingredients.slice(0,50)} ..
               </p>
 
             </div>
             <div className="p-6 flex gap-2 pt-0 mt-1">
-              <Link className="align-middle select-none font-cool font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-black text-white shadow-lg shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none hover:bg-slate-400 hover:text-black "
+              <Link className="hover:text-[#7fa947]  hover:shadow-[inset_1px_2px_4px_#b3b3b3] h-10 w-20 rounded-full flex items-center justify-center"
               to={`/detail/api/${apiId}`}
               >
                 Read
@@ -166,7 +166,7 @@ export default function OurRecipes() {
                 </h1>    
         </div>
         {searchedRecipe.map((el) => (
-             <div className=" flex flex-col bg-white shadow-xl  rounded-md w-72 h-96 ">
+             <div className=" flex flex-col bg-white shadow-xl  rounded-md w-72 h-96 " key={el}>
              <div className="h-1/3 ">
                  <img src={`${el.image}`} alt="" />
              </div>
@@ -192,6 +192,6 @@ export default function OurRecipes() {
 
     </div> }
     
-    </>
+    </div>
   );
 }
